@@ -1,0 +1,334 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Contact HQ - ProHacker Academy{% endblock %}
+
+{% block extra_css %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap');
+
+  .glitch { position: relative; animation: glitch 4s infinite; }
+  .glitch::before, .glitch::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+  .glitch::before { animation: glitch-1 0.5s infinite; color: #00ffff; left: 2px; text-shadow: -2px 0 #ff00ff; }
+  .glitch::after { animation: glitch-2 0.5s infinite; color: #ff00ff; left: -2px; text-shadow: 2px 0 #00ffff; }
+
+  @keyframes glitch { 0%,100% { transform: translate(0); } 20% { transform: translate(-4px,4px); } 40% { transform: translate(4px,-4px); } }
+  @keyframes glitch-1 { 0% { clip: rect(20px,9999px,40px,0); } 100% { clip: rect(80px,9999px,100px,0); } }
+  @keyframes glitch-2 { 0% { clip: rect(40px,9999px,60px,0); } 100% { clip: rect(10px,9999px,80px,0); } }
+
+  .scanline { 
+    position: absolute; top: 0; left: 0; width: 100%; height: 4px; 
+    background: linear-gradient(transparent, rgba(0,255,255,0.2), transparent); 
+    animation: scan 8s linear infinite; 
+  }
+  @keyframes scan { from { transform: translateY(-100%); } to { transform: translateY(100vh); } }
+
+  .floating { animation: float 10s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO – LIGHT & DARK MODE PERFECTION -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden 
+                bg-gradient-to-b from-slate-50 via-white to-indigo-50 
+                dark:from-black dark:via-gray-950 dark:to-black">
+
+  <!-- Matrix Rain + Scanline – Only in Dark Mode -->
+  <canvas id="matrix" class="fixed inset-0 opacity-0 dark:opacity-40 pointer-events-none"></canvas>
+  <div class="scanline hidden dark:block"></div>
+
+  <!-- Floating Orbs -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-20 left-10 w-96 h-96 
+                bg-indigo-400/10 dark:bg-cyan-500/30 
+                rounded-full blur-3xl floating"></div>
+    <div class="absolute bottom-32 right-20 w-80 h-80 
+                bg-purple-400/10 dark:bg-purple-600/30 
+                rounded-full blur-3xl floating" style="animation-delay: -5s;"></div>
+  </div>
+
+  <div class="relative z-10 text-center px-6 max-w-7xl mx-auto">
+    <h1 class="text-7xl md:text-9xl font-black tracking-tighter mb-6">
+      <span class="glitch block text-indigo-700 dark:text-white" data-text="CONTACT">CONTACT</span>
+      <span class="block text-transparent bg-clip-text 
+                   bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 
+                   dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 
+                   drop-shadow-2xl">
+        HQ
+      </span>
+    </h1>
+
+    <p class="text-3xl md:text-5xl text-indigo-700 dark:text-cyan-300 font-mono mb-8">
+      <span class="text-emerald-600 dark:text-green-400">[SECURE CHANNEL ACTIVE]</span><br>
+      <span id="typewriter" class="inline-block"></span><span class="animate-ping">_</span>
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-8 justify-center items-center">
+      <a href="#contact-form" 
+         class="group relative px-16 py-8 
+                bg-gradient-to-r from-indigo-600 to-purple-600 
+                dark:from-cyan-500 dark:to-purple-600 
+                rounded-2xl font-black text-3xl text-white shadow-2xl 
+                hover:scale-110 transition-all duration-500 
+                border-4 border-white/20 hover:border-white overflow-hidden">
+        <span class="relative z-10 flex items-center gap-4">
+          Transmit Message
+        </span>
+        <div class="absolute inset-0 bg-white/30 blur-xl scale-0 group-hover:scale-150 transition-all duration-700"></div>
+      </a>
+
+      <a href="#support" 
+         class="px-16 py-8 border-4 border-dashed 
+                border-purple-600 dark:border-pink-500 
+                text-purple-600 dark:text-pink-400 
+                font-black text-3xl rounded-2xl backdrop-blur-xl 
+                hover:bg-purple-100 dark:hover:bg-pink-500/10 
+                transition-all duration-500 hover:rotate-3">
+        OPEN COMMS
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SUPPORT CHANNELS – PERFECT IN BOTH MODES -->
+<section id="support" class="py-24 px-6 
+                bg-gray-50 dark:bg-black 
+                border-t border-gray-200 dark:border-gray-800">
+  
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-center text-5xl md:text-6xl lg:text-7xl font-black mb-20 tracking-tight">
+      <span class="bg-gradient-to-r 
+                   from-indigo-600 via-purple-600 to-pink-600 
+                   dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 
+                   bg-clip-text text-transparent">
+        CONTACT HQ
+      </span>
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-14">
+
+      <!-- Email -->
+      <div class="group relative bg-white dark:bg-gray-900/90 
+                  backdrop-blur-xl rounded-3xl p-10 text-center 
+                  border border-gray-200 dark:border-gray-700 
+                  shadow-xl hover:shadow-2xl 
+                  transition-all duration-500 hover:-translate-y-6 
+                  hover:border-indigo-500/50 dark:hover:border-cyan-500/40">
+        <div class="text-8xl mb-8 opacity-10 dark:opacity-20 group-hover:opacity-40 transition-all duration-700">
+          Envelope
+        </div>
+        <h3 class="text-3xl md:text-4xl font-black mb-6 
+                   text-indigo-700 dark:text-cyan-400 
+                   group-hover:text-indigo-600 dark:group-hover:text-cyan-300 transition-colors">
+          Encrypted Email
+        </h3>
+        <p class="text-lg leading-relaxed mb-8 text-gray-700 dark:text-gray-300">
+          For sensitive intel drops, exploit reports & mission requests
+        </p>
+        <a href="mailto:ops@prohacker.academy" 
+           class="inline-block font-mono text-xl 
+                  text-indigo-600 dark:text-cyan-400 
+                  hover:text-indigo-500 dark:hover:text-cyan-300 break-all transition-colors">
+          ops@prohacker.academy
+        </a>
+      </div>
+
+      <!-- Forum -->
+      <div class="group relative bg-white dark:bg-gray-900/90 
+                  backdrop-blur-xl rounded-3xl p-10 text-center 
+                  border border-gray-200 dark:border-gray-700 
+                  shadow-xl hover:shadow-2xl 
+                  transition-all duration-500 hover:-translate-y-6 
+                  hover:border-emerald-500/50 dark:hover:border-emerald-500/40">
+        <div class="text-8xl mb-8 opacity-10 dark:opacity-20 group-hover:opacity-40 transition-all duration-700">
+          Comments
+        </div>
+        <h3 class="text-3xl md:text-4xl font-black mb-6 
+                   text-emerald-700 dark:text-emerald-400 
+                   group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition-colors">
+          Darknet Forum
+        </h3>
+        <p class="text-lg leading-relaxed mb-8 text-gray-700 dark:text-gray-300">
+          Join 50K+ operatives. Share CTF writeups. Trade zero-days.
+        </p>
+        <a href="#" 
+           class="inline-block px-10 py-5 
+                  bg-gradient-to-r from-emerald-600 to-teal-600 
+                  dark:from-emerald-500 dark:to-teal-500 
+                  hover:from-emerald-700 hover:to-teal-700 
+                  text-white font-black rounded-xl shadow-lg 
+                  hover:shadow-emerald-500/50 transition-all duration-300">
+          ENTER FORUM
+        </a>
+      </div>
+
+      <!-- Secure Line -->
+      <div class="group relative bg-white dark:bg-gray-900/90 
+                  backdrop-blur-xl rounded-3xl p-10 text-center 
+                  border border-gray-200 dark:border-gray-700 
+                  shadow-xl hover:shadow-2xl 
+                  transition-all duration-500 hover:-translate-y-6 
+                  hover:border-purple-500/50 dark:hover:border-pink-500/40">
+        <div class="text-8xl mb-8 opacity-10 dark:opacity-20 group-hover:opacity-40 transition-all duration-700">
+          Phone
+        </div>
+        <h3 class="text-3xl md:text-4xl font-black mb-6 
+                   text-purple-700 dark:text-pink-400 
+                   group-hover:text-purple-600 dark:group-hover:text-pink-300 transition-colors">
+          Secure Voice Line
+        </h3>
+        <p class="text-lg leading-relaxed mb-8 text-gray-700 dark:text-gray-300">
+          Direct encrypted comms with command center
+        </p>
+        <p class="text-4xl font-mono text-purple-700 dark:text-pink-400 mb-2">
+          +1 (555) HACK-007
+        </p>
+        <p class="text-sm text-gray-500 dark:text-gray-500">24/7 Emergency Only</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT FORM – TERMINAL STYLE -->
+<section id="contact-form" class="py-32 px-6 
+                bg-gray-50 dark:bg-black relative">
+  <div class="max-w-4xl mx-auto">
+    <div class="bg-white dark:bg-gray-900/90 backdrop-blur-2xl rounded-3xl 
+                border-4 border-dashed border-indigo-300 dark:border-cyan-500/50 
+                shadow-2xl overflow-hidden">
+      
+      <!-- Terminal Header -->
+      <div class="bg-gray-100 dark:bg-black px-8 py-4 flex items-center gap-4 
+                  border-b-2 border-indigo-500 dark:border-cyan-500">
+        <div class="flex gap-3">
+          <div class="w-4 h-4 rounded-full bg-red-500"></div>
+          <div class="w-4 h-4 rounded-full bg-yellow-500"></div>
+          <div class="w-4 h-4 rounded-full bg-green-500"></div>
+        </div>
+        <span class="text-indigo-700 dark:text-green-400 font-mono">root@prohacker:~$ contact_form</span>
+      </div>
+
+      <div class="p-10">
+        <form method="post" class="space-y-8">
+          {% csrf_token %}
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <label class="text-indigo-700 dark:text-cyan-400 font-bold text-lg">Your Alias</label>
+              {% render_field form.name class="mt-3 w-full px-6 py-4 bg-gray-50 dark:bg-black/60 border-2 border-gray-300 dark:border-cyan-800 rounded-2xl text-gray-900 dark:text-white focus:border-indigo-500 dark:focus:border-cyan-400 focus:outline-none transition text-lg" placeholder="hacker_1337" %}
+            </div>
+            <div>
+              <label class="text-indigo-700 dark:text-cyan-400 font-bold text-lg">Drop Email</label>
+              {% render_field form.email class="mt-3 w-full px-6 py-4 bg-gray-50 dark:bg-black/60 border-2 border-gray-300 dark:border-cyan-800 rounded-2xl text-gray-900 dark:text-white focus:border-indigo-500 dark:focus:border-cyan-400 focus:outline-none transition text-lg" placeholder="you@darknet.local" %}
+            </div>
+          </div>
+
+          <div>
+            <label class="text-indigo-700 dark:text-cyan-400 font-bold text-lg">Subject Line</label>
+            {% render_field form.subject class="mt-3 w-full px-6 py-4 bg-gray-50 dark:bg-black/60 border-2 border-gray-300 dark:border-cyan-800 rounded-2xl text-gray-900 dark:text-white focus:border-indigo-500 dark:focus:border-cyan-400 focus:outline-none transition text-lg" placeholder="URGENT: Zero-day in lab 7" %}
+          </div>
+
+          <div>
+            <label class="text-indigo-700 dark:text-cyan-400 font-bold text-lg">Priority Level</label>
+            {% render_field form.priority class="mt-3 w-full px-6 py-4 bg-gray-50 dark:bg-black/60 border-2 border-gray-300 dark:border-cyan-800 rounded-2xl text-gray-900 dark:text-white focus:border-indigo-500 dark:focus:border-cyan-400 focus:outline-none transition text-lg" %}
+          </div>
+
+          <div>
+            <label class="text-indigo-700 dark:text-cyan-400 font-bold text-lg">Full Transmission</label>
+            {% render_field form.message rows="6" class="mt-3 w-full px-6 py-4 bg-gray-50 dark:bg-black/60 border-2 border-gray-300 dark:border-cyan-800 rounded-2xl text-gray-900 dark:text-white resize-none focus:border-indigo-500 dark:focus:border-cyan-400 focus:outline-none transition text-lg" placeholder="Exploit PoC, stack trace, or support request..." %}
+          </div>
+
+          <div class="flex items-center gap-4">
+            <input type="checkbox" required class="w-6 h-6 text-indigo-600 dark:text-cyan-500 bg-gray-100 dark:bg-black border-gray-300 dark:border-cyan-700 rounded">
+            <span class="text-gray-700 dark:text-gray-300">I accept the <span class="text-purple-600 dark:text-pink-400 font-bold">Red Pill Protocol</span></span>
+          </div>
+
+          <div class="text-center pt-8">
+            <button type="submit" class="relative px-20 py-8 
+               bg-gradient-to-r from-indigo-600 to-purple-600 
+               dark:from-cyan-500 dark:via-purple-600 dark:to-pink-600 
+               rounded-2xl font-black text-4xl text-white shadow-2xl 
+               hover:scale-110 transition-all duration-500 
+               border-4 border-white/30 hover:border-white animate-pulse overflow-hidden">
+              <span class="relative z-10">TRANSMIT SIGNAL</span>
+              <div class="absolute inset-0 bg-white/20 blur-xl animate-ping"></div>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="py-32 px-6 bg-gradient-to-t from-gray-50 to-white dark:from-black dark:to-gray-900 relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-t from-indigo-100/20 via-transparent to-purple-100/20 dark:from-cyan-900/30 dark:via-transparent dark:to-purple-900/30"></div>
+  <div class="relative text-center max-w-5xl mx-auto">
+    <h2 class="text-6xl md:text-8xl font-black mb-8">
+      <span class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 
+                   dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 
+                   bg-clip-text text-transparent">
+        THE SIGNAL HAS BEEN SENT
+      </span>
+    </h2>
+    <p class="text-2xl text-gray-700 dark:text-gray-300 mb-12">Command will respond within 2 hours.</p>
+    <a href="{% url 'register' %}" class="inline-block px-20 py-10 
+       bg-gradient-to-r from-indigo-600 to-purple-600 
+       dark:from-red-600 dark:to-pink-600 
+       rounded-full font-black text-5xl text-white shadow-2xl 
+       hover:scale-110 border-4 border-indigo-500 dark:border-red-500 
+       hover:border-indigo-400 dark:hover:border-pink-400 
+       transition-all duration-500 animate-pulse">
+      BEGIN TRAINING NOW
+    </a>
+  </div>
+</section>
+
+<!-- MATRIX + TYPEWRITER SCRIPT -->
+<script>
+  // Typewriter
+  const words = ["Technical Support", "Exploit Reports", "Zero-Day Drops", "Mission Briefs"];
+  let i = 0, j = 0, current = "", isDeleting = false;
+
+  function type() {
+    const word = words[i];
+    current = isDeleting ? word.substring(0, j--) : word.substring(0, j++);
+    document.getElementById("typewriter").textContent = current;
+
+    if (!isDeleting && j === word.length) { isDeleting = true; setTimeout(type, 2000); }
+    else if (isDeleting && j === 0) { isDeleting = false; i = (i + 1) % words.length; setTimeout(type, 500); }
+    else { setTimeout(type, isDeleting ? 80 : 120); }
+  }
+  document.addEventListener("DOMContentLoaded", type);
+
+  // Matrix Rain – Only in Dark Mode
+  if (document.documentElement.classList.contains('dark')) {
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const matrix = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホ";
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0,0,0,0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#00ff41';
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = matrix[Math.floor(Math.random() * matrix.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    setInterval(draw, 35);
+  }
+</script>
+{% endblock %}

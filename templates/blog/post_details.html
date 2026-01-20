@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ post.title }}</title>
+
+    <!-- highlight.js CSS -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
+</head>
+<body>
+
+<h1>{{ post.title }}</h1>
+<h3>{{ post.description }}</h3>
+<div class="prose prose-invert max-w-none">
+    {{ content_html|safe }}
+</div>
+
+<!-- highlight.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+</body>
+</html>

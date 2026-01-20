@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog Home</title>
+</head>
+<body>
+
+<h1>All Blog Posts, hii welcome to blog</h1>
+
+<ul>
+{% for p in posts %}
+    <li>
+        <a href="/post/{{ p.id }}/">{{ p.title }}</a>
+        <p>{{ p.description }}</p>
+    </li>
+{% endfor %}
+</ul>
+
+</body>
+</html>

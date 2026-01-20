@@ -1,0 +1,861 @@
+{% extends 'base.html' %}
+
+{% block title %}ProHacker Academy | Learn Cyber Security, AI & Hacking{% endblock %}
+
+{% block content %}
+
+
+<section class="relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden 
+                bg-gradient-to-br from-indigo-50 via-white to-emerald-50
+                dark:bg-black dark:from-black dark:via-gray-950 dark:to-slate-950">
+
+  <!-- Animated background blobs (visible in both modes) -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute inset-0 bg-gradient-to-br 
+                  from-cyan-500/10 via-purple-600/10 to-pink-600/10 
+                  dark:from-cyan-500/20 dark:via-purple-600/20 dark:to-pink-600/20"></div>
+    <div class="absolute -top-40 -right-40 w-96 h-96 bg-cyan-500 rounded-full 
+                  mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-30 
+                  animate-pulse"></div>
+    <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-600 rounded-full 
+                  mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-30 
+                  animate-pulse animation-delay-2000"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
+                  w-80 h-80 bg-emerald-500 rounded-full 
+                  mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-20 
+                  animate-pulse animation-delay-4000"></div>
+  </div>
+
+  <!-- MAIN CONTAINER - Fixed height issue with proper spacing -->
+  <div class="relative z-10 w-full max-w-7xl mx-auto">
+
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+      <!-- LEFT SIDE - Main Content -->
+      <div class="text-center lg:text-left space-y-8">
+
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-black leading-tight">
+          <span class="bg-gradient-to-r from-indigo-500 via-cyan-500 to-emerald-500
+                         dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400
+                         bg-clip-text text-transparent drop-shadow-2xl">
+            ProHacker
+          </span>
+          <br>
+          <span class="text-4xl md:text-5xl lg:text-6xl 
+                         bg-gradient-to-r from-gray-700 to-gray-900
+                         dark:from-gray-300 dark:to-gray-100
+                         bg-clip-text text-transparent">
+            Academy
+          </span>
+        </h1>
+
+        <p class="text-2xl md:text-3xl font-bold">
+          <span class="text-indigo-700 dark:text-cyan-300">Learn</span>
+          <span id="typewriter" class="text-purple-600 dark:text-pink-400"></span>
+        </p>
+
+        <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+          Master <span class="font-bold text-cyan-600 dark:text-cyan-400">Offensive Security</span>,
+          <span class="font-bold text-purple-600 dark:text-purple-400">Exploit Development</span>,
+          <span class="font-bold text-emerald-600 dark:text-emerald-400">Red Teaming</span> &
+          <span class="font-bold text-pink-600 dark:text-pink-400">AI Security</span><br>
+          <span class="text-sm md:text-base text-gray-500 dark:text-gray-400">
+            Real-world labs used by elite red teams at Google · Meta · Tesla
+          </span>
+        </p>
+
+        <!-- Main Buttons -->
+        <div class="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
+          <a href="{% url 'courses:courses_list' %}" 
+             class="px-10 py-5 bg-gradient-to-r from-cyan-500 to-emerald-500 
+                    hover:from-cyan-400 hover:to-emerald-400 text-white font-bold text-xl 
+                    rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 
+                    flex items-center justify-center gap-3">
+            <i class="fas fa-rocket"></i> Start Learning Free
+          </a>
+
+          <a href="{% url 'register' %}" 
+             class="px-10 py-5 border-2 border-cyan-500 text-cyan-600 dark:text-cyan-300 
+                    hover:bg-cyan-500/10 font-bold text-xl rounded-2xl 
+                    backdrop-blur-md transform hover:scale-105 transition-all duration-300">
+            <i class="fas fa-user-shield"></i> Join Elite Community
+          </a>
+        </div>
+
+        <!-- Trust badges -->
+        <div class="flex flex-wrap justify-center lg:justify-start gap-6 text-sm text-gray-600 dark:text-gray-400">
+          <div><i class="fas fa-users text-cyan-500"></i> 87K+ Hackers</div>
+          <div><i class="fas fa-trophy text-yellow-500"></i> OSCP · OSWE</div>
+          <div><i class="fas fa-server text-emerald-500"></i> 500+ Labs</div>
+          <div><i class="fas fa-shield-alt text-purple-500"></i> Google · Meta · Tesla</div>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE - Casual Rectangle Button (Big & Playful) -->
+     <div class="relative inline-block group select-none">
+
+  <a href="{% url 'register' %}" 
+     class="relative block px-14 py-10 md:px-20 md:py-14 
+            bg-black rounded-3xl shadow-2xl overflow-hidden
+            border-4 border-dashed border-cyan-500 
+            hover:border-cyan-300 transform hover:scale-110 
+            hover:-rotate-3 transition-all duration-500 ease-out
+            cursor-pointer group">
+
+    <!-- Glow -->
+    <div class="absolute inset-0 rounded-3xl 
+                bg-gradient-to-r from-cyan-500 via-purple-600 to-pink-600 
+                opacity-0 group-hover:opacity-100 blur-xl 
+                transition-opacity duration-700 -z-10"></div>
+
+    <!-- Matrix background -->
+    <div class="absolute inset-0 opacity-20 pointer-events-none">
+      <div class="h-full w-full bg-gradient-to-b from-transparent via-cyan-400 to-transparent 
+                  bg-[length:100%_6px] animate-matrix-slow"></div>
+    </div>
+
+    <!-- Text -->
+    <div class="relative z-10 text-center">
+      <h2 class="font-black text-5xl md:text-7xl tracking-wider text-transparent 
+                 bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-400 to-purple-400
+                 drop-shadow-2xl glitch-casual">
+        GO PRO
+      </h2>
+
+      <p class="mt-3 text-xl md:text-2xl font-handwritten text-cyan-300 drop-shadow-lg">
+        Upgrade your experience
+      </p>
+    </div>
+
+    <!-- Terminal prompt -->
+    <div class="mt-6 text-green-400 font-mono text-sm md:text-base opacity-80">
+      root@system:~$ <span class="text-cyan-300 blinking">sudo level_up</span>
+    </div>
+  </a>
+
+  <!-- Subtle particles -->
+  <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+    <span class="absolute top-10 left-10 text-4xl animate-fly1">•</span>
+    <span class="absolute top-20 right-12 text-5xl animate-fly2 text-pink-400">•</span>
+    <span class="absolute bottom-16 left-20 text-4xl animate-fly3 text-cyan-300">•</span>
+  </div>
+</div>
+
+
+
+      <!-- END RIGHT -->
+
+
+
+
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+    <i class="fas fa-chevron-down text-4xl text-cyan-500 dark:text-cyan-400 drop-shadow-lg"></i>
+  </div>
+</section>
+
+
+
+
+<!-- new third -->
+<section class="relative  bg-white py-32 dark:bg-gradient-to-b dark:from-purple-950 dark:via-black to-black overflow-hidden">
+  <!-- Floating doodles -->
+  <div class="absolute inset-0 pointer-events-none">
+    <span class="absolute top-20 left-10 text-9xl opacity-10 animate-bounce">Lightning</span>
+    <span class="absolute top-40 right-20 text-8xl opacity-10 animate-pulse">Crossbones</span>
+    <span class="absolute bottom-32 left-1/4 text-7xl opacity-10 animate-spin-slow">Gear</span>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6">
+    <div class="text-center mb-20">
+      <h2 class="text-6xl md:text-8xl font-black tracking-tight">
+        <span class="bg-gradient-to-r from-pink-400 via-cyan-300 to-yellow-300 bg-clip-text text-transparent">
+          WE TEACH THE
+        </span>
+        <br>
+        <span class="text-7xl md:text-9xl text-white drop-shadow-2xl">
+          FULL. FREAKING. STACK.
+        </span>
+      </h2>
+      <p class="mt-6 text-2xl text-cyan-300 font-handwritten">
+        yeah, even the crazy stuff no one else dares to teach
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 max-w-7xl mx-auto px-6">
+
+  <!-- CARD TEMPLATE – REPEATED 9 TIMES -->
+  <!-- 1. Physics -->
+  <div class="group relative transform-gpu hover:-rotate-2 hover:scale-105 transition-all duration-500">
+    <div class="relative bg-gradient-to-br from-cyan-500 to-blue-600 p-1.5 rounded-3xl shadow-2xl">
+      <div class="bg-white dark:bg-black rounded-3xl p-8 h-full backdrop-blur-xl border-4 border-dashed border-gray-200 dark:border-white/30">
+        <div class="text-8xl mb-6 opacity-10 dark:opacity-20 group-hover:opacity-40 transition-opacity">Physics</div>
+        <h3 class="text-4xl font-black text-gray-900 dark:text-white mb-4 drop-shadow-lg">Physics</h3>
+        <p class="text-gray-700 dark:text-gray-200 text-lg leading-relaxed font-medium">
+          Quantum RNGs • Voltage glitching • Side-channel attacks • Post-quantum crypto (Kyber, Dilithium)
+        </p>
+        <div class="flex flex-wrap gap-3 mt-8">
+          <span class="px-5 py-2.5 bg-gray-100 dark:bg-white/20 backdrop-blur-md rounded-full text-sm font-bold 
+                       text-indigo-700 dark:text-cyan-300 border border-indigo-300 dark:border-cyan-400/50">
+            Quantum Crypto
+          </span>
+          <span class="px-5 py-2.5 bg-gray-100 dark:bg-white/20 backdrop-blur-md rounded-full text-sm font-bold 
+                       text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-400/50">
+            Glitch Attacks
+          </span>
+        </div>
+      </div>
+      <div class="absolute -top-5 -right-5 bg-gradient-to-r from-yellow-400 to-orange-500 
+                  text-black px-6 py-3 rounded-full font-black text-sm rotate-12 shadow-2xl 
+                  dark:from-yellow-300 dark:to-amber-500">
+        REAL
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Chemistry -->
+  <div class="group relative transform-gpu hover:-rotate-2 hover:scale-105 transition-all duration-500">
+    <div class="relative bg-gradient-to-br from-emerald-500 to-teal-600 p-1.5 rounded-3xl shadow-2xl">
+      <div class="bg-white dark:bg-black rounded-3xl p-8 h-full backdrop-blur-xl border-4 border-dashed border-gray-200 dark:border-white/30">
+        <div class="text-8xl mb-6 opacity-10 dark:opacity-20 group-hover:opacity-40 transition-opacity">Chemistry</div>
+        <h3 class="text-4xl font-black text-gray-900 dark:text-white mb-4 drop-shadow-lg">Chemistry</h3>
+        <p class="text-gray-700 dark:text-gray-200 text-lg leading-relaxed font-medium">
+          Chip decapping • Cold boot attacks • Hardware trojans • DNA storage exploits
+        </p>
+        <div class="flex flex-wrap gap-3 mt-8">
+          <span class="px-5 py-2.5 bg-gray-100 dark:bg-white/20 backdrop-blur-md rounded-full text-sm font-bold 
+                       text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-400/50">
+            Decapping
+          </span>
+          <span class="px-5 py-2.5 bg-gray-100 dark:bg-white/20 backdrop-blur-md rounded-full text-sm font-bold 
+                       text-teal-700 dark:text-teal-300 border border-teal-300 dark:border-teal-400/50">
+            Cold Boot
+          </span>
+        </div>
+      </div>
+      <div class="absolute -top-5 -right-5 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-6 py-3 rounded-full font-black text-sm rotate-12 shadow-2xl">REAL</div>
+    </div>
+  </div>
+
+  <!-- 3. Mathematics -->
+  <div class="group relative transform-gpu hover:-rotate-2 hover:scale-105 transition-all duration-500">
+    <div class="relative bg-gradient-to-br from-purple-500 to-pink-600 p-1.5 rounded-3xl shadow-2xl">
+      <div class="bg-white dark:bg-black rounded-3xl p-8 h-full backdrop-blur-xl border-4 border-dashed border-gray-200 dark:border-white/30">
+        <div class="text-8xl mb-6 opacity-10 dark:opacity-20 group-hover:opacity-40 transition-opacity">Math</div>
+        <h3 class="text-4xl font-black text-gray-900 dark:text-white mb-4 drop-shadow-lg">Mathematics</h3>
+        <p class="text-gray-700 dark:text-gray-200 text-lg leading-relaxed font-medium">
+          ECC • RSA • AES math • zk-SNARKs • Homomorphic encryption • Chaos RNG
+        </p>
+        <div class="flex flex-wrap gap-3 mt-8">
+          <span class="px-5 py-2.5 bg-gray-100 dark:bg-white/20 backdrop-blur-md rounded-full text-sm font-bold 
+                       text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-400/50">
+            RSA
+          </span>
+          <span class="px-5 py-2.5 bg-gray-100 dark:bg-white/20 backdrop-blur-md rounded-full text-sm font-bold 
+                       text-pink-700 dark:text-pink-300 border border-pink-300 dark:border-pink-400/50">
+            zk-SNARKs
+          </span>
+        </div>
+      </div>
+      <div class="absolute -top-5 -right-5 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-6 py-3 rounded-full font-black text-sm rotate-12 shadow-2xl">REAL</div>
+    </div>
+  </div>
+
+  <!-- 4. AI & Data Science -->
+  <div class="group relative transform-gpu hover:-rotate-2 hover:scale-105 transition-all duration-500">
+    <div class="relative bg-gradient-to-br from-yellow-400 to-orange-600 p-1.5 rounded-3xl shadow-2xl">
+      <div class="bg-white dark:bg-black rounded-3xl p-8 h-full backdrop-blur-xl border-4 border-dashed border-gray-200 dark:border-white/30">
+        <div class="text-8xl mb-6 opacity-10 dark:opacity-20 group-hover:opacity-40 transition-opacity">Data</div>
+        <h3 class="text-4xl font-black text-gray-900 dark:text-white mb-4 drop-shadow-lg">AI & Data Science</h3>
+        <p class="text-gray-700 dark:text-gray-200 text-lg leading-relaxed font-medium">
+          Adversarial ML • Model stealing • LLM phishing • DeepFake attacks
+        </p>
+        <div class="flex flex-wrap gap-3 mt-8">
+          <span class="px-5 py-2.5 bg-gray-100 dark:bg-white/20 backdrop-blur-md rounded-full text-sm font-bold 
+                       text-yellow-700 dark:text-yellow-300 border border-yellow-300 dark:border-yellow-400/50">
+            Model Poisoning
+          </span>
+          <span class="px-5 py-2.5 bg-gray-100 dark:bg-white/20 backdrop-blur-md rounded-full text-sm font-bold 
+                       text-orange-700 dark:text-orange-300 border border-orange-300 dark:border-orange-400/50">
+            DeepFakes
+          </span>
+        </div>
+      </div>
+      <div class="absolute -top-5 -right-5 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-6 py-3 rounded-full font-black text-sm rotate-12 shadow-2xl">REAL</div>
+    </div>
+  </div>
+
+  <!-- 5. Linux Mastery -->
+  <div class="group relative transform-gpu hover:-rotate-2 hover:scale-105 transition-all duration-500">
+    <div class="relative bg-gradient-to-br from-green-500 to-lime-600 p-1.5 rounded-3xl shadow-2xl">
+      <div class="bg-white dark:bg-black rounded-3xl p-8 h-full backdrop-blur-xl border-4 border-dashed border-gray-200 dark:border-white/30">
+        <div class="text-8xl mb-6 opacity-10 dark:opacity-20 group-hover:opacity-40 transition-opacity">Linux</div>
+        <h3 class="text-4xl font-black text-gray-900 dark:text-white mb-4 drop-shadow-lg">Linux Mastery</h3>
+        <p class="text-gray-700 dark:text-gray-200 text-lg leading-relaxed font-medium">
+          eBPF rootkits • Dirty Pipe • Kernel exploits • Kali/Parrot weaponized
+        </p>
+        <div class="flex flex-wrap gap-3 mt-8">
+          <span class="px-5 py-2.5 bg-gray-100 dark:bg-white/20 backdrop-blur-md rounded-full text-sm font-bold 
+                       text-green-700 dark:text-green-300 border border-green-300 dark:border-green-400/50">
+            eBPF
+          </span>
+          <span class="px-5 py-2.5 bg-gray-100 dark:bg-white/20 backdrop-blur-md rounded-full text-sm font-bold 
+                       text-lime-700 dark:text-lime-300 border border-lime-300 dark:border-lime-400/50">
+            LPE
+          </span>
+        </div>
+      </div>
+      <div class="absolute -top-5 -right-5 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-6 py-3 rounded-full font-black text-sm rotate-12 shadow-2xl">REAL</div>
+    </div>
+  </div>
+
+  <!-- 6. Web Dev Weaponized -->
+  <div class="group relative transform-gpu hover:-rotate-2 hover:scale-105 transition-all duration-500">
+    <div class="relative bg-gradient-to-br from-pink-500 to-rose-600 p-1.5 rounded-3xl shadow-2xl">
+      <div class="bg-white dark:bg-black rounded-3xl p-8 h-full backdrop-blur-xl border-4 border-dashed border-gray-200 dark:border-white/30">
+        <div class="text-8xl mb-6 opacity-10 dark:opacity-20 group-hover:opacity-40 transition-opacity">Web</div>
+        <h3 class="text-4xl font-black text-gray-900 dark:text-white mb-4 drop-shadow-lg">Web Dev Weaponized</h3>
+        <p class="text-gray-700 dark:text-gray-200 text-lg leading-relaxed font-medium">
+          SSTI • Pickle RCE • SSRF to metadata • Building C2 panels in Django
+        </p>
+        <div class="flex flex-wrap gap-3 mt-8">
+          <span class="px-5 py-2.5 bg-gray-100 dark:bg-white/20 backdrop-blur-md rounded-full text-sm font-bold 
+                       text-pink-700 dark:text-pink-300 border border-pink-300 dark:border-pink-400/50">
+            SSTI
+          </span>
+          <span class="px-5 py-2.5 bg-gray-100 dark:bg-white/20 backdrop-blur-md rounded-full text-sm font-bold 
+                       text-rose-700 dark:text-rose-300 border border-rose-300 dark:border-rose-400/50">
+            C2 Panels
+          </span>
+        </div>
+      </div>
+      <div class="absolute -top-5 -right-5 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-6 py-3 rounded-full font-black text-sm rotate-12 shadow-2xl">REAL</div>
+    </div>
+  </div>
+
+  <!-- Add remaining 3 cards (Containers, Hardware, Networks) the same way -->
+</div>
+
+    <div class="text-center mt-20">
+      <p class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-400">
+        no fluff. no bootcamp vibes.<br>
+        <span class="text-6xl text-white">just pure underground knowledge</span>
+      </p>
+      <a href="{% url 'register' %}" class="mt-10 inline-block px-16 py-8 bg-gradient-to-r from-cyan-500 to-pink-500 
+         rounded-full font-black text-3xl text-white shadow-2xl hover:scale-110 transition-all duration-300">
+        Join The Chaos Lightning
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Comic+Neue:wght@700&display=swap');
+  .font-handwritten { font-family: 'Comic Neue', cursive; font-weight: 700; letter-spacing: 1px; }
+  .animate-spin-slow { animation: spin 30s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+<!-- end new third -->
+
+
+
+<!-- study map -->
+
+<section class="relative py-32 overflow-hidden 
+                bg-white dark:bg-black">
+  
+  <!-- Light Mode Subtle Grid -->
+  <div class="absolute inset-0 opacity-5 dark:opacity-0 pointer-events-none">
+    <div class="h-full w-full bg-[linear-gradient(#e5e7eb_1px,transparent_1px),linear-gradient(90deg,#e5e7eb_1px,transparent_1px)] 
+                bg-[size:60px_60px]"></div>
+  </div>
+
+  <!-- Matrix Rain – Only in Dark Mode -->
+  <div class="absolute inset-0 opacity-15 dark:opacity-20 pointer-events-none hidden dark:block">
+    <canvas id="matrixBG" class="fixed inset-0"></canvas>
+  </div>
+
+  <div class="relative z-10 max-w-5xl mx-auto px-6">
+    <!-- Title -->
+    <h2 class="text-center text-6xl md:text-8xl font-black mb-24 tracking-tight">
+      <span class="bg-gradient-to-r 
+                   from-indigo-600 via-purple-600 to-pink-600 
+                   dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 
+                   bg-clip-text text-transparent">
+        YOUR CYBER EVOLUTION ROADMAP
+      </span>
+    </h2>
+
+    <!-- TIMELINE -->
+    <div class="relative">
+      <!-- Center Line -->
+      <div class="absolute left-1/2 -translate-x-1/2 w-1 h-full 
+                  bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500 
+                  dark:from-cyan-500 dark:via-purple-500 dark:to-pink-500 
+                  shadow-lg shadow-indigo-500/30 dark:shadow-cyan-500/50"></div>
+
+      <div class="space-y-28">
+
+        <!-- 1. Physics (Right) -->
+        <div class="relative flex items-center justify-between">
+          <div class="w-5/12"></div>
+          <div class="absolute left-1/2 -translate-x-1/2 w-16 h-16 
+                      bg-gradient-to-br from-indigo-500 to-purple-600 
+                      dark:from-cyan-500 dark:to-purple-600 
+                      rounded-full border-4 border-white dark:border-black 
+                      shadow-2xl flex items-center justify-center 
+                      text-white dark:text-black font-black text-2xl z-10">
+            1
+          </div>
+          <div class="w-5/12 pl-16">
+            <div class="bg-white dark:bg-gray-900/90 backdrop-blur-xl rounded-3xl p-10 
+                        border border-gray-200 dark:border-gray-700 
+                        shadow-xl hover:shadow-2xl transition-all duration-500">
+              <div class="text-8xl mb-6 opacity-10 dark:opacity-20">Physics</div>
+              <h3 class="text-3xl font-black text-indigo-700 dark:text-cyan-400 mb-4">
+                Physics to Quantum Attacks
+              </h3>
+              <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                QRNG • Side-channel (power/EM/timing) • BB84 • Lattice crypto (Kyber) • Voltage glitching
+              </p>
+              <div class="flex flex-wrap gap-3 mt-6">
+                <span class="px-5 py-2 bg-indigo-100 dark:bg-cyan-900/50 border border-indigo-300 dark:border-cyan-600 
+                             text-indigo-700 dark:text-cyan-300 rounded-full text-sm font-bold">
+                  Post-Quantum
+                </span>
+                <span class="px-5 py-2 bg-purple-100 dark:bg-purple-900/50 border border-purple-300 dark:border-purple-600 
+                             text-purple-700 dark:text-purple-300 rounded-full text-sm font-bold">
+                  Fault Injection
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Chemistry (Left) -->
+        <div class="relative flex items-center justify-between">
+          <div class="w-5/12 pr-16">
+            <div class="bg-white dark:bg-gray-900/90 backdrop-blur-xl rounded-3xl p-10 
+                        border border-gray-200 dark:border-gray-700 
+                        shadow-xl hover:shadow-2xl transition-all duration-500 text-right">
+              <div class="text-8xl mb-6 opacity-10 dark:opacity-20">Chemistry</div>
+              <h3 class="text-3xl font-black text-emerald-700 dark:text-emerald-400 mb-4">
+                Chemistry to Hardware Sabotage
+              </h3>
+              <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                Chip decapping • Cold boot attacks • Hardware trojans • DNA storage exploits
+              </p>
+              <div class="flex flex-wrap gap-3 mt-6 justify-end">
+                <span class="px-5 py-2 bg-emerald-100 dark:bg-emerald-900/50 border border-emerald-300 dark:border-emerald-600 
+                             text-emerald-700 dark:text-emerald-300 rounded-full text-sm font-bold">
+                  Decapping
+                </span>
+                <span class="px-5 py-2 bg-teal-100 dark:bg-teal-900/50 border border-teal-300 dark:border-teal-600 
+                             text-teal-700 dark:text-teal-300 rounded-full text-sm font-bold">
+                  Cold Boot
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="absolute left-1/2 -translate-x-1/2 w-16 h-16 
+                      bg-gradient-to-br from-emerald-500 to-teal-600 
+                      dark:from-emerald-500 dark:to-teal-600 
+                      rounded-full border-4 border-white dark:border-black 
+                      shadow-2xl flex items-center justify-center 
+                      text-white dark:text-black font-black text-2xl z-10">
+            2
+          </div>
+          <div class="w-5/12"></div>
+        </div>
+
+        <!-- 3. Mathematics (Right) -->
+        <div class="relative flex items-center justify-between">
+          <div class="w-5/12"></div>
+          <div class="absolute left-1/2 -translate-x-1/2 w-16 h-16 
+                      bg-gradient-to-br from-purple-500 to-pink-600 
+                      dark:from-purple-500 dark:to-pink-600 
+                      rounded-full border-4 border-white dark:border-black 
+                      shadow-2xl flex items-center justify-center 
+                      text-white dark:text-black font-black text-2xl z-10">
+            3
+          </div>
+          <div class="w-5/12 pl-16">
+            <div class="bg-white dark:bg-gray-900/90 backdrop-blur-xl rounded-3xl p-10 
+                        border border-gray-200 dark:border-gray-700 
+                        shadow-xl hover:shadow-2xl transition-all duration-500">
+              <div class="text-8xl mb-6 opacity-10 dark:opacity-20">Math</div>
+              <h3 class="text-3xl font-black text-purple-700 dark:text-purple-400 mb-4">
+                Mathematics to Crypto Foundations
+              </h3>
+              <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                ECC • RSA • AES math • zk-SNARKs • Homomorphic encryption • Chaos RNG
+              </p>
+              <div class="flex flex-wrap gap-3 mt-6">
+                <span class="px-5 py-2 bg-purple-100 dark:bg-purple-900/50 border border-purple-300 dark:border-purple-600 
+                             text-purple-700 dark:text-purple-300 rounded-full text-sm font-bold">RSA</span>
+                <span class="px-5 py-2 bg-pink-100 dark:bg-pink-900/50 border border-pink-300 dark:border-pink-600 
+                             text-pink-700 dark:text-pink-300 rounded-full text-sm font-bold">zk-SNARKs</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. AI & Data Science (Left) -->
+        <div class="relative flex items-center justify-between">
+          <div class="w-5/12 pr-16">
+            <div class="bg-white dark:bg-gray-900/90 backdrop-blur-xl rounded-3xl p-10 
+                        border border-gray-200 dark:border-gray-700 
+                        shadow-xl hover:shadow-2xl transition-all duration-500 text-right">
+              <div class="text-8xl mb-6 opacity-10 dark:opacity-20">Data</div>
+              <h3 class="text-3xl font-black text-yellow-700 dark:text-yellow-400 mb-4">
+                AI to Weaponized Intelligence
+              </h3>
+              <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                Adversarial ML • LLM phishing • Model stealing • DeepFake ops • Transformer fuzzing
+              </p>
+              <div class="flex flex-wrap gap-3 mt-6 justify-end">
+                <span class="px-5 py-2 bg-yellow-100 dark:bg-yellow-900/50 border border-yellow-300 dark:border-yellow-600 
+                             text-yellow-700 dark:text-yellow-300 rounded-full text-sm font-bold">DeepFakes</span>
+                <span class="px-5 py-2 bg-orange-100 dark:bg-orange-900/50 border border-orange-300 dark:border-orange-600 
+                             text-orange-700 dark:text-orange-300 rounded-full text-sm font-bold">Model Poisoning</span>
+              </div>
+            </div>
+          </div>
+          <div class="absolute left-1/2 -translate-x-1/2 w-16 h-16 
+                      bg-gradient-to-br from-yellow-500 to-orange-600 
+                      dark:from-yellow-500 dark:to-orange-600 
+                      rounded-full border-4 border-white dark:border-black 
+                      shadow-2xl flex items-center justify-center 
+                      text-white dark:text-black font-black text-2xl z-10">
+            4
+          </div>
+          <div class="w-5/12"></div>
+        </div>
+
+        <!-- 5. Linux Mastery (Right) -->
+        <div class="relative flex items-center justify-between">
+          <div class="w-5/12"></div>
+          <div class="absolute left-1/2 -translate-x-1/2 w-16 h-16 
+                      bg-gradient-to-br from-green-500 to-lime-600 
+                      dark:from-green-500 dark:to-lime-600 
+                      rounded-full border-4 border-white dark:border-black 
+                      shadow-2xl flex items-center justify-center 
+                      text-white dark:text-black font-black text-2xl z-10">
+            5
+          </div>
+          <div class="w-5/12 pl-16">
+            <div class="bg-white dark:bg-gray-900/90 backdrop-blur-xl rounded-3xl p-10 
+                        border border-gray-200 dark:border-gray-700 
+                        shadow-xl hover:shadow-2xl transition-all duration-500">
+              <div class="text-8xl mb-6 opacity-10 dark:opacity-20">Linux</div>
+              <h3 class="text-3xl font-black text-green-700 dark:text-green-400 mb-4">
+                Linux to Kernel Zero Days
+              </h3>
+              <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                eBPF rootkits • Dirty Pipe • LPE • Kali/Parrot weaponized • Volatility forensics
+              </p>
+              <div class="flex flex-wrap gap-3 mt-6">
+                <span class="px-5 py-2 bg-green-100 dark:bg-green-900/50 border border-green-300 dark:border-green-600 
+                             text-green-700 dark:text-green-300 rounded-full text-sm font-bold">eBPF</span>
+                <span class="px-5 py-2 bg-lime-100 dark:bg-lime-900/50 border border-lime-300 dark:border-lime-600 
+                             text-lime-700 dark:text-lime-300 rounded-full text-sm font-bold">Kernel Exploit</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Containers & K8s (Left) -->
+        <div class="relative flex items-center justify-between">
+          <div class="w-5/12 pr-16">
+            <div class="bg-white dark:bg-gray-900/90 backdrop-blur-xl rounded-3xl p-10 
+                        border border-gray-200 dark:border-gray-700 
+                        shadow-xl hover:shadow-2xl transition-all duration-500 text-right">
+              <div class="text-8xl mb-6 opacity-10 dark:opacity-20">Container</div>
+              <h3 class="text-3xl font-black text-blue-700 dark:text-blue-400 mb-4">
+                Containers to Cloud Escape
+              </h3>
+              <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                Docker breakout • K8s RBAC hijack • Falco detection • Supply chain implants
+              </p>
+              <div class="flex flex-wrap gap-3 mt-6 justify-end">
+                <span class="px-5 py-2 bg-blue-100 dark:bg-blue-900/50 border border-blue-300 dark:border-blue-600 
+                             text-blue-700 dark:text-blue-300 rounded-full text-sm font-bold">Container Escape</span>
+                <span class="px-5 py-2 bg-cyan-100 dark:bg-cyan-900/50 border border-cyan-300 dark:border-cyan-600 
+                             text-cyan-700 dark:text-cyan-300 rounded-full text-sm font-bold">K8s Pentest</span>
+              </div>
+            </div>
+          </div>
+          <div class="absolute left-1/2 -translate-x-1/2 w-16 h-16 
+                      bg-gradient-to-br from-blue-500 to-cyan-600 
+                      dark:from-blue-500 dark:to-cyan-600 
+                      rounded-full border-4 border-white dark:border-black 
+                      shadow-2xl flex items-center justify-center 
+                      text-white dark:text-black font-black text-2xl z-10">
+            6
+          </div>
+          <div class="w-5/12"></div>
+        </div>
+
+        <!-- 7. Web Dev Weaponized (Right) -->
+        <div class="relative flex items-center justify-between">
+          <div class="w-5/12"></div>
+          <div class="absolute left-1/2 -translate-x-1/2 w-16 h-16 
+                      bg-gradient-to-br from-pink-500 to-rose-600 
+                      dark:from-pink-500 dark:to-rose-600 
+                      rounded-full border-4 border-white dark:border-black 
+                      shadow-2xl flex items-center justify-center 
+                      text-white dark:text-black font-black text-2xl z-10">
+            7
+          </div>
+          <div class="w-5/12 pl-16">
+            <div class="bg-white dark:bg-gray-900/90 backdrop-blur-xl rounded-3xl p-10 
+                        border border-gray-200 dark:border-gray-700 
+                        shadow-xl hover:shadow-2xl transition-all duration-500">
+              <div class="text-8xl mb-6 opacity-10 dark:opacity-20">Web</div>
+              <h3 class="text-3xl font-black text-pink-700 dark:text-pink-400 mb-4">
+                Web to C2 & RCE
+              </h3>
+              <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                SSTI • Pickle RCE • SSRF to metadata • Undetectable C2 panels in Django
+              </p>
+              <div class="flex flex-wrap gap-3 mt-6">
+                <span class="px-5 py-2 bg-pink-100 dark:bg-pink-900/50 border border-pink-300 dark:border-pink-600 
+                             text-pink-700 dark:text-pink-300 rounded-full text-sm font-bold">SSTI</span>
+                <span class="px-5 py-2 bg-rose-100 dark:bg-rose-900/50 border border-rose-300 dark:border-rose-600 
+                             text-rose-700 dark:text-rose-300 rounded-full text-sm font-bold">C2 Panels</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. Hardware & VLSI (Left) -->
+        <div class="relative flex items-center justify-between">
+          <div class="w-5/12 pr-16">
+            <div class="bg-white dark:bg-gray-900/90 backdrop-blur-xl rounded-3xl p-10 
+                        border border-gray-200 dark:border-gray-700 
+                        shadow-xl hover:shadow-2xl transition-all duration-500 text-right">
+              <div class="text-8xl mb-6 opacity-10 dark:opacity-20">Chip</div>
+              <h3 class="text-3xl font-black text-orange-700 dark:text-orange-400 mb-4">
+                Hardware to CPU Backdoors
+              </h3>
+              <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                Rowhammer • Spectre • JTAG • Firmware dump • Secure boot bypass
+              </p>
+              <div class="flex flex-wrap gap-3 mt-6 justify-end">
+                <span class="px-5 py-2 bg-orange-100 dark:bg-orange-900/50 border border-orange-300 dark:border-orange-600 
+                             text-orange-700 dark:text-orange-300 rounded-full text-sm font-bold">Rowhammer</span>
+                <span class="px-5 py-2 bg-amber-100 dark:bg-amber-900/50 border border-amber-300 dark:border-amber-600 
+                             text-amber-700 dark:text-amber-300 rounded-full text-sm font-bold">Spectre</span>
+              </div>
+            </div>
+          </div>
+          <div class="absolute left-1/2 -translate-x-1/2 w-16 h-16 
+                      bg-gradient-to-br from-orange-500 to-amber-600 
+                      dark:from-orange-500 dark:to-amber-600 
+                      rounded-full border-4 border-white dark:border-black 
+                      shadow-2xl flex items-center justify-center 
+                      text-white dark:text-black font-black text-2xl z-10">
+            8
+          </div>
+          <div class="w-5/12"></div>
+        </div>
+
+        <!-- 9. Network Mastery (Final Boss) -->
+        <div class="relative flex items-center justify-center mt-32">
+          <div class="absolute left-1/2 -translate-x-1/2 w-20 h-20 
+                      bg-gradient-to-br from-red-600 to-pink-700 
+                      dark:from-red-600 dark:to-pink-700 
+                      rounded-full border-8 border-white dark:border-black 
+                      shadow-2xl flex items-center justify-center 
+                      text-white dark:text-black font-black text-4xl z-10 animate-pulse">
+            BOSS
+          </div>
+          <div class="w-full max-w-3xl">
+            <div class="bg-white dark:bg-gray-900/90 backdrop-blur-xl rounded-3xl p-12 
+                        border-4 border-dashed border-red-500/50 dark:border-red-500/30 
+                        shadow-2xl text-center">
+              <div class="text-9xl mb-6 opacity-10 dark:opacity-20">Network</div>
+              <h3 class="text-5xl font-black text-red-700 dark:text-red-400 mb-6">
+                Network Topologies to Enterprise Domination
+              </h3>
+              <p class="text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-8">
+                Star/Bus/Ring/Mesh pivoting • Docker overlay hijacks • SDN attacks • 
+                Double-pivot through firewall + proxy
+              </p>
+              <div class="flex flex-wrap justify-center gap-4 text-lg">
+                <span class="px-6 py-3 bg-red-100 dark:bg-red-900/50 border border-red-400 
+                             text-red-700 dark:text-red-300 rounded-full font-bold">ARP Spoof</span>
+                <span class="px-6 py-3 bg-purple-100 dark:bg-purple-900/50 border border-purple-400 
+                             text-purple-700 dark:text-purple-300 rounded-full font-bold">SDN Attacks</span>
+                <span class="px-6 py-3 bg-pink-100 dark:bg-pink-900/50 border border-pink-400 
+                             text-pink-700 dark:text-pink-300 rounded-full font-bold">Final Boss</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-32">
+      <a href="{% url 'register' %}" 
+         class="inline-block px-24 py-10 
+                bg-gradient-to-r from-indigo-600 to-purple-600 
+                dark:from-cyan-500 dark:via-purple-600 dark:to-pink-600 
+                rounded-full font-black text-5xl text-white shadow-2xl 
+                hover:scale-110 hover:rotate-3 transition-all duration-500 
+                border-4 border-white/30 hover:border-white animate-pulse">
+        BEGIN YOUR EVOLUTION
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MATRIX RAIN – Only in Dark Mode -->
+<script>
+  if (document.documentElement.classList.contains('dark')) {
+    const canvas = document.getElementById('matrixBG');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const matrix = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホ";
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0,0,0,0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#0f0';
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = matrix[Math.floor(Math.random() * matrix.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    setInterval(draw, 35);
+  }
+</script>
+<style>
+  .cyber-card {
+    @apply relative bg-gray-900/70 backdrop-blur-xl rounded-2xl p-8 border-2 border-gray-700 
+           transition-all duration-500 group-hover:border-cyan-500 
+           group-hover:shadow-2xl group-hover:shadow-cyan-500/40 
+           group-hover:-translate-y-2;
+  }
+  .cyber-card::before {
+    content: ''; @apply absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-purple-600/10 
+                       opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl -z-10;
+  }
+  .icon {
+    @apply text-8xl absolute -top-4 -right-4 opacity-10 group-hover:opacity-30 
+           transition-all duration-700 group-hover:scale-125;
+  }
+  .tags {
+    @apply flex flex-wrap gap-3;
+  }
+  .tags span {
+    @apply px-4 py-2 bg-cyan-900/50 rounded-full text-xs font-bold text-cyan-300 border border-cyan-800;
+  }
+  .tags.justify-end { @apply justify-end; }
+  .tags.justify-center { @apply justify-center; }
+</style>
+
+
+
+<!-- end study map -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+  
+  /* Handwritten font feel */
+.font-handwritten {
+  font-family: 'Comic Neue', 'Permanent Marker', cursive;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+/* Casual glitch (hover only) */
+.group:hover .glitch-casual {
+  animation: casualGlitch 0.4s ease infinite;
+}
+@keyframes casualGlitch {
+  0%,100% { transform: translate(0); }
+  20% { transform: translate(-3px, 3px); text-shadow: 3px 3px 0 #ff00ff; }
+  40% { transform: translate(3px, -3px); text-shadow: -3px -3px 0 #00ffff; }
+  60% { transform: translate(-2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+/* Matrix rain */
+@keyframes matrix-slow {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+.animate-matrix-slow { animation: matrix-slow 12s linear infinite; }
+
+/* Blinking cursor */
+.blinking::after {
+  content: '|';
+  animation: blink 1s infinite;
+}
+@keyframes blink {
+  0%,50% { opacity: 1; }
+  51%,100% { opacity: 0; }
+}
+
+/* Subtle flying particles */
+@keyframes fly1 { to { transform: translate(-20px, -20px); opacity: 0; } }
+@keyframes fly2 { to { transform: translate(25px, -15px) scale(0); opacity: 0; } }
+@keyframes fly3 { to { transform: translate(-15px, 25px); opacity: 0; } }
+
+.animate-fly1 { animation: fly1 1.2s forwards; }
+.animate-fly2 { animation: fly2 1.4s forwards 0.2s; }
+.animate-fly3 { animation: fly3 1.6s forwards 0.4s; }
+
+</style>
+<!-- content new -->
+
+<!-- end content new -->
+
+<!-- Typing Effect Script -->
+<script>
+  const words = ["Cyber Security", "AI Analytics", "Ethical Hacking", "Cloud Mastery", "IoT Exploits"];
+  let i = 0, j = 0, current = "", isDeleting = false;
+  const speed = 100;
+
+  function type() {
+    const word = words[i];
+    current = isDeleting ? word.substring(0, j--) : word.substring(0, j++);
+    document.getElementById("typewriter").textContent = current;
+
+    if (!isDeleting && j === word.length + 1) { isDeleting = true; setTimeout(type, 1500); }
+    else if (isDeleting && j === 0) { isDeleting = false; i = (i + 1) % words.length; setTimeout(type, 500); }
+    else { setTimeout(type, isDeleting ? speed / 2 : speed); }
+  }
+  type();
+</script>
+{% endblock %}

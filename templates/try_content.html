@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ module.title }} - {{ module.course.title }} - TechForge Tutorials{% endblock %}
+
+{% block content %}
+
+<div>
+
+    {% for c in contents %}
+    <h2>{{ c.main_title }}</h2>
+    <p><strong>Module:</strong> {{ c.module.title }}</p>
+
+    <div class="content-body">
+        {{ c.content|safe }}
+    </div>
+
+    {% if c.code %}
+    <pre><code class="language-{{ c.code_language }}">
+{{ c.code }}
+    </code></pre>
+    {% endif %}
+
+    <hr>
+{% endfor %}
+
+</div>
+
+
+{% endblock %}

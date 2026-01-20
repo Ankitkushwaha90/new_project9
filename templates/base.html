@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+
+  <title>{% block title %}ProHacker Academy | Learn Cyber Security, AI & Hacking{% endblock %}</title>
+  {% block extra_head %}{% endblock %}
+
+
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+  
+  
+  <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+  
+  <!-- KaTeX Auto-render (for $$ and \[ \]) -->
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
+
+
+
+
+  <script src="https://cdn.tailwindcss.com?plugins=typography,forms,line-clamp"></script>
+
+
+
+
+  <!-- Fira Code + Rajdhani Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Rajdhani:wght@500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <!-- markdown formula -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <!-- markdown end formula -->
+
+
+  <!-- Prism.js (Only Once!) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Rajdhani', 'sans-serif'],
+            mono: ['Fira Code', 'monospace'],
+          },
+          colors: {
+            primary: {
+              50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc',
+              400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1',
+              800: '#075985', 900: '#0c4a6e',
+            },
+          },
+        },
+      },
+    };
+
+    // Dark Mode: Respect system + save preference
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    function toggleDarkMode() {
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.theme = 'light';
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.theme = 'dark';
+      }
+      updateThemeIcon();
+    }
+
+    function updateThemeIcon() {
+      const icon = document.getElementById('theme-icon');
+      if (document.documentElement.classList.contains('dark')) {
+        icon.innerHTML = `<path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />`;
+      } else {
+        icon.innerHTML = `<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />`;
+      }
+    }
+  </script>
+
+
+  <!-- markdown -->
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body);"></script>
+
+  <!--  markdownformula end-->
+
+<style>
+  /* PREMIUM MACOS-STYLE CODE WINDOW — 2025 Edition */
+  pre[class*="language-"] {
+    @apply relative overflow-hidden rounded-2xl shadow-2xl;
+    background: linear-gradient(145deg, #1e1e1e, #111111);
+    border: 1px solid #333;
+    margin: 2rem 0;
+    font-family: 'Fira Code', 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  pre[class*="language-"]::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 52px;
+    background: linear-gradient(to bottom, #2d2d2d, #1e1e1e);
+    border-bottom: 1px solid #333;
+    border-radius: 16px 16px 0 0;
+    z-index: 10;
+  }
+
+  /* Mac Traffic Lights (Red, Yellow, Green) */
+  pre[class*="language-"]::after {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    width: 12px; height: 12px;
+    background: #ff5f57;
+    border-radius: 50%;
+    box-shadow: 
+      20px 0 0 #ffbd2e,
+      40px 0 0 #28c840;
+    z-index: 20;
+  }
+
+  /* Code container with padding */
+  pre[class*="language-"] > code {
+    @apply block p-8 pt-16 pb-10 text-sm leading-relaxed;
+    background: transparent !important;
+    color: #e6e6e6;
+    display: block;
+    overflow-x: auto;
+    font-feature-settings: "liga" 1, "calt" 1;
+  }
+
+  /* Syntax Colors - Premium Dracula Theme */
+  .language-bash::before,
+  .language-sh::before,
+  .language-shell::before {
+    content: '$';
+    position: absolute;
+    top: 68px;
+    left: 32px;
+    color: #50fa7b;
+    font-weight: bold;
+    z-index: 15;
+  }
+
+  code[class*="language-"] {
+    color: #f8f8f2 !important;
+  }
+
+  /* Token Colors - Ultra Premium */
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    color: #6272a4;
+    font-style: italic;
+  }
+
+  .token.punctuation {
+    color: #f8f8f2;
+  }
+
+  .token.property,
+  .token.tag,
+  .token.constant,
+  .token.symbol,
+  .token.deleted {
+    color: #ff79c6;
+  }
+
+  .token.boolean,
+  .token.number {
+    color: #bd93f9;
+  }
+
+  .token.selector,
+  .token.attr-name,
+  .token.string,
+  .token.char,
+  .token.builtin,
+  .token.inserted {
+    color: #50fa7b;
+  }
+
+  .token.operator,
+  .token.entity,
+  .token.url,
+  .language-css .token.string,
+  .style .token.string,
+  .token.variable {
+    color: #f8f8f2;
+  }
+
+  .token.atrule,
+  .token.attr-value,
+  .token.function,
+  .token.class-name {
+    color: #8be9fd;
+  }
+
+  .token.keyword {
+    color: #ff79c6;
+    font-weight: bold;
+  }
+
+  .token.regex,
+  .token.important {
+    color: #ffb86c;
+  }
+
+  .token.important,
+  .token.bold {
+    font-weight: bold;
+  }
+
+  .token.italic {
+    font-style: italic;
+  }
+
+  /* Inline code (in paragraphs) */
+  .prose :not(pre) > code {
+    @apply px-2 py-1 text-sm rounded-lg font-medium;
+    background: rgba(139, 233, 253, 0.15);
+    color: #8be9fd;
+    border: 1px solid rgba(139, 233, 253, 0.3);
+  }
+
+  /* Copy Button - Floating Top Right */
+  pre[class*="language-"] {
+    position: relative;
+  }
+
+  pre[class*="language-"] .copy-btn {
+    position: absolute;
+    top: 14px;
+    right: 20px;
+    z-index: 30;
+    @apply px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg opacity-0 transition-all duration-300;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+
+  pre[class*="language-"]:hover .copy-btn {
+    @apply opacity-100 translate-y-0;
+  }
+
+  pre[class*="language-"] .copy-btn:hover {
+    background: #8be9fd;
+    color: #000;
+    transform: scale(1.05);
+  }
+
+  pre[class*="language-"] .copy-btn.copied {
+    background: #50fa7b;
+    color: #000;
+  }
+
+  /* Optional: Add subtle glow on hover */
+  .card-hover {
+    @apply transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2;
+  }
+</style>
+
+
+<style>
+  /* PREMIUM MACOS CODE WINDOW — 2025 (With Perfect Scroll) */
+  pre[class*="language-"] {
+    @apply relative overflow-hidden rounded-2xl shadow-2xl my-10;
+    background: linear-gradient(145deg, #1e1e1e, #111111);
+    border: 1px solid #333;
+    font-family: 'Fira Code', 'JetBrains Mono', ui-monospace, monospace;
+
+    /* SCROLLABLE CODE AREA */
+    min-height: 160px;           /* Never too small */
+    max-height: 600px;           /* ~30-35 lines max */
+    overflow-y: auto;            /* Enable vertical scroll */
+    overflow-x: auto;
+  }
+
+  /* Custom Scrollbar — Beautiful & Modern */
+  pre[class*="language-"]::-webkit-scrollbar {
+    width: 10px;
+  }
+  pre[class*="language-"]::-webkit-scrollbar-track {
+    background: #1a1a1a11a;
+    border-radius: 10px;
+  }
+  pre[class*="language-"]::-webkit-scrollbar-thumb {
+    background: #52525b;
+    border-radius: 10px;
+  }
+  pre[class*="language-"]::-webkit-scrollbar-thumb:hover {
+    background: #71717a;
+  }
+
+  /* Firefox Support */
+  pre[class*="language-"] {
+    scrollbar-width: thin;
+    scrollbar-color: #52525b #1a1a1a;
+  }
+
+  pre[class*="language-"]::before {
+    content: '';
+    position: sticky;
+    top: 0;
+    left: 0; right: 0; height: 56px;
+    background: linear-gradient(to bottom, #2d2d2d, #1e1e1e);
+    border-bottom: 1px solid #404040;
+    border-radius: 16px 16px 0 0;
+    z-index: 10;
+  }
+
+  /* Mac Traffic Lights */
+  pre[class*="language-"]::after {
+    content: '';
+    position: sticky;
+    top: 20px; left: 20px;
+    width: 12px; height: 12px;
+    background: #ff5f56;
+    border-radius: 50%;
+    box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27c93f;
+    z-index: 20;
+  }
+
+  /* Code Area */
+  pre[class*="language-"] > code {
+    @apply block p-10 pt-20 pb-12 text-sm leading-relaxed;
+    color: #e6e6e6;
+    display: block;
+    overflow-x: auto;
+    font-feature-settings: "liga" 1, "calt" 1;
+    min-height: 120px; /* Ensures space even for short code */
+  }
+
+  /* $ Prompt for Bash */
+  .language-bash pre::before,
+  .language-sh pre::before,
+  .language-shell pre::before {
+    content: '$';
+    position: absolute;
+    top: 72px;
+    left: 36px;
+    color: #50fa7b;
+    font-weight: bold;
+    z-index: 15;
+    font-size: 1.1em;
+  }
+
+  /* Floating Copy Button — Always Visible */
+  pre[class*="language-"] .copy-btn {
+    position: sticky;
+    top: 16px;
+    right: 24px;
+    z-index: 40;
+    @apply px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl opacity-90 hover:opacity-100 transition-all duration-300 shadow-lg;
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+    color: white;
+    border: none;
+    backdrop-filter: blur(10px);
+  }
+
+  pre[class*="language-"] .copy-btn:hover {
+    transform: translateY(-2px) scale(1.08);
+    box-shadow: 0 10px 25px rgba(139, 94, 246, 0.4);
+  }
+
+  pre[class*="language-"] .copy-btn.copied {
+    background: #50fa7b;
+    color: #000;
+  }
+
+  /* Inline code */
+  .prose :not(pre) > code {
+    @apply px-2.5 py-1 text-sm rounded-lg font-medium;
+    background: rgba(139, 233, 253, 0.15);
+    color: #8be9fd;
+    border: 1px solid rgba(139, 233, 253, 0.3);
+  }
+</style>
+
+
+
+<style>
+  /* ULTRA PREMIUM VIOLET DARK CODE WINDOW — 2025 Elite Edition */
+  pre[class*="language-"] {
+    @apply relative overflow-hidden rounded-2xl shadow-2xl my-1 border border-purple-900/40;
+    background: linear-gradient(145deg, #0f0819, #0a0614);
+    font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+    min-height: 180px;
+    max-height: 680px;
+    overflow-y: auto;
+    overflow-x: auto;
+    backdrop-filter: blur(12px);
+  }
+
+  /* Custom Beautiful Scrollbar */
+  pre[class*="language-"]::-webkit-scrollbar {
+    width:  : 10px;
+    height : 10px;
+  }
+  pre[class*="language-"]::-webkit-scrollbar-track {
+    background: #1a0f2e;
+    border-radius: 1px;
+  }
+  pre[class*="language-"]::-webkit-scrollbar-thumb {
+    background: linear-gradient(#a78bfa, #818cf8);
+    border-radius: 10px;
+  }
+  pre[class*="language-"]::-webkit-scrollbar-thumb:hover {
+    background: #c4b5fd;
+  }
+
+  /* MacOS Title Bar */
+  pre[class*="language-"]::before {
+    content: '';
+    position: sticky;
+    top: 0;
+    left: 0; right: 0; height: 58px;
+    background: linear-gradient(to bottom, #2a1b47, #1a0f2e);
+    border-bottom: 1px solid #3a2c5e;
+    border-radius: 18px 18px 0 0;
+    z-index: 10;
+  }
+
+  /* Traffic Lights — Violet Edition */
+  pre[class*="language-"]::after {
+    content: '';
+    position: sticky;
+    top: 20px;
+    left: 24px;
+    width: 13px; height: 13px;
+    background: #ff5f96;
+    border-radius: 50%;
+    box-shadow: 
+      22px 0 0 #ffbd44,
+      44px 0 0 #00ca4e;
+    z-index: 20;
+  }
+
+  /* Code Area */
+  pre[class*="language-"] > code {
+    @apply block p-10 pt-24 pb-14 text-sm leading-relaxed;
+    color: #e0d4ff;
+    background: transparent;
+    font-feature-settings: "liga" 1, "calt" 1;
+  }
+
+  /* $ Prompt for Shell */
+  .language-bash pre::before,
+  .language-sh pre::before {
+    content: '$';
+    position: absolute;
+    top: 76px;
+    left: 36px;
+    color: #a78bfa;
+    font-weight: bold;
+    font-size: 1.2em;
+    z-index: 15;
+  }
+
+  /* Premium Violet Syntax Highlighting */
+  code[class*="language-"] {
+    color: #e0d4ff !important;
+  }
+  .token.comment    { color: #8b8ba7; font-style: italic; }
+  .token.keyword    { color: #c678dd; font-weight: bold; }
+  .token.function,
+  .token.class-name { color: #61afef; }
+  .token.string     { color: #98c379; }
+  .token.number     { color: #d19a66; }
+  .token.operator   { color: #56b6c2; }
+  .token.punctuation{ color: #abb2bf; }
+  .token.property   { color: #e06c75; }
+
+  /* Floating Copy Button — Always Visible & Gorgeous */
+  pre[class*="language-"] .copy-btn {
+    position: sticky;
+    top: 18px;
+    right: 28px;
+    z-index: 50;
+    @apply px-6 py-3 text-xs font-bold uppercase tracking-wider rounded-xl shadow-lg transition-all duration-300;
+    background: linear-gradient(135deg, #a78bfa, #818cf8);
+    color: white;
+    border: none;
+    backdrop-filter: blur(12px);
+  }
+  pre[class*="language-"] .copy-btn:hover {
+    transform: translateY(-3px) scale(1.08);
+    box-shadow: 0 15px 35px rgba(167, 139, 250, 0.4);
+  }
+  pre[class*="language-"] .copy-btn.copied {
+    background: #50fa7b;
+    color: #000;
+  }
+
+  /* Inline Code */
+  .prose :not(pre) > code {
+    @apply px-3 py-1.5 text-sm rounded-xl font-medium;
+    background: rgba(167, 139, 250, 0.15);
+    color: #c4b5fd;
+    border: 1px solid rgba(167, 139, 250,0.3);
+  }
+
+  /* Subtle glow on hover */
+  pre[class*="language-"]:hover {
+    box-shadow: 0 20px 60px rgba(167, 139, 250, 0.25);
+    transform: translateY(-4px);
+    transition: all 0.4s ease;
+  }
+</style>
+
+
+<script>
+  // Add copy button to every code block
+  document.querySelectorAll('pre[class*="language-"]').forEach(block => {
+    const button = document.createElement('button');
+    button.className = 'copy-btn';
+    button.textContent = 'Copy';
+    button.onclick = () => {
+      navigator.clipboard.writeText(block.querySelector('code').textContent);
+      button.textContent = 'Copied!';
+      button.classList.add('copied');
+      setTimeout(() => {
+        button.textContent = 'Copy';
+        button.classList.remove('copied');
+      }, 2000);
+    };
+    block.appendChild(button);
+  });
+</script>
+
+
+
+
+
+
+
+  
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+  <!-- Matrix Rain (Only in Dark Mode) -->
+  <div class="matrix hidden dark:block"></div>
+
+  <!-- Navigation -->
+<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md dark:bg-black/90 border-b border-cyan-500/20 shadow-2xl">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="flex items-center justify-between h-[4.5rem]">
+
+      <!-- Logo - Glitch Effect -->
+      <div class="flex items-center">
+        <a href="{% url 'home' %}" class="group relative">
+          <h1 class="text-3xl font-black tracking-tighter">
+            <span class="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 
+                         bg-clip-text text-transparent group-hover:animate-pulse transition">
+              ProHacker
+            </span>
+          </h1>
+          <!-- Subtle glow on hover -->
+          <div class="absolute -inset-2 bg-gradient-to-r from-cyan-500/20 to-purple-600/20 blur-xl 
+                      opacity-0 group-hover:opacity-100 transition duration-700 rounded-full"></div>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden lg:flex items-center space-x-1">
+        {% comment %} 
+        <div class="hidden md:flex items-center space-x-1">
+          <a href="{% url 'freelance_listings' %}" class="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Freelance</a>
+          <a href="{% url 'courses:courses_list' %}" class="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Courses</a>
+          <a href="{% url 'about' %}" class="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">About</a>
+          <a href="{% url 'contact' %}" class="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Contact</a>
+          
+
+          <!-- Social Links (Desktop) -->
+          <a href="https://github.com/Ankitkushwaha90" target="_blank" class="ml-3 p-2 text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-cyan-400 transition">
+            <i class="fab fa-github text-lg"></i>
+          </a>
+          <a href="https://huggingface.co/ankitkushwaha90" target="_blank" class="p-2 text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-cyan-400 transition">
+            <i class="fa-brands fa-hugging-face text-lg"><span style="font-size:20px; filter: grayscale(1) brightness(0.5);">🤗</span>
+            </i>
+            
+          </a>
+
+          <!-- Theme Toggle -->
+          <button onclick="toggleDarkMode()" class="ml-3 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition" aria-label="Toggle theme">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path id="theme-icon" d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+            </svg>
+          </button>
+
+          <!-- Auth -->
+          <div class="ml-3 flex items-center space-x-2">
+            {% if user.is_authenticated %}
+              <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Hi, {{ user.username }}</span>
+              <a href="{% url 'dashboard' %}" class="px-3 py-1.5 text-sm bg-indigo-600 hover:bg-indigo-700 dark:bg-cyan-600 dark:hover:bg-cyan-500 text-white rounded-md">Dashboard</a>
+              <form action="{% url 'logout' %}" method="post" class="inline">
+                {% csrf_token %}
+                <button type="submit" class="px-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Logout</button>
+              </form>
+            {% else %}
+              <a href="{% url 'login' %}" class="px-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Login</a>
+              <a href="{% url 'register' %}" class="px-3 py-1.5 text-sm bg-indigo-600 hover:bg-indigo-700 dark:bg-cyan-600 dark:hover:bg-cyan-500 text-white rounded-md">Register</a>
+            {% endif %}
+          </div>
+        </div>
+        {% endcomment %}
+        
+        
+        <div class="hidden lg:flex items-center space-x-8">
+  <!-- Premium Nav Links -->
+  <a href="{% url 'academics:course_list' %}" 
+     class="nav-link group">
+    <span class="relative">
+      Academics
+      <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 
+                   group-hover:w-full transition-all duration-500 ease-out"></span>
+    </span>
+  </a>
+
+  <a href="{% url 'freelance_listings' %}" 
+     class="nav-link group">
+    <span class="relative">
+      Freelance
+      <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-400 
+                   group-hover:w-full transition-all duration-500 ease-out"></span>
+    </span>
+  </a>
+
+  <a href="{% url 'courses:courses_list' %}" 
+     class="nav-link group">
+    <span class="relative">
+      Courses
+      <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400 
+                   group-hover:w-full transition-all duration-500 ease-out"></span>
+    </span>
+  </a>
+
+  <a href="{% url 'about' %}" 
+     class="nav-link group">
+    <span class="relative">
+      About
+      <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-400 
+                   group-hover:w-full transition-all duration-500 ease-out"></span>
+    </span>
+  </a>
+
+  <a href="{% url 'contact' %}" 
+     class="nav-link group">
+    <span class="relative">
+      Contact
+      <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-pink-400 to-red-500 
+                   group-hover:w-full transition-all duration-500 ease-out"></span>
+    </span>
+  </a>
+</div>
+
+        <!-- Social Icons - Neon Glow -->
+        <div class="flex items-center gap-3 ml-6 pl-6 border-l border-gray-700">
+          <a href="https://github.com/Ankitkushwaha90" target="_blank"
+             class="social-btn hover:text-cyan-400">
+            <i class="fab fa-github text-xl"></i>
+          </a>
+          <a href="https://huggingface.co/ankitkushwaha90" target="_blank"
+             class="social-btn hover:text-purple-400">
+            <span class="text-2xl">🤗</span>
+          </a>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button onclick="toggleDarkMode()" 
+                class="ml-4 p-3 rounded-xl bg-gray-800/50 hover:bg-gray-700 
+                       border border-gray-700 hover:border-cyan-500 
+                       transition-all duration-300 group">
+          <svg class="w-5 h-5 text-gray-400 group-hover:text-cyan-400 transition" 
+               fill="currentColor" viewBox="0 0 20 20">
+            <path id="theme-icon" 
+                  d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+          </svg>
+        </button>
+
+        <!-- Auth Buttons -->
+        <div class="ml-6 flex items-center gap-3">
+          {% if user.is_authenticated %}
+            <div class="flex items-center gap-3">
+              <span class="text-sm text-gray-400">Hi, <span class="text-cyan-300 font-bold">{{ user.username }}</span></span>
+              <a href="{% url 'dashboard' %}" 
+                 class="px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-purple-600 
+                        text-white font-bold rounded-xl hover:scale-105 
+                        shadow-lg hover:shadow-cyan-500/50 transition-all duration-300">
+                Dashboard
+              </a>
+              <form action="{% url 'logout' %}" method="post" class="inline">
+                {% csrf_token %}
+                <button type="submit" 
+                        class="px-4 py-2.5 text-gray-400 hover:text-pink-400 
+                               font-medium transition">Logout</button>
+              </form>
+            </div>
+          {% else %}
+            <a href="{% url 'login' %}" 
+               class="px-5 py-2.5 text-gray-300 hover:text-cyan-400 font-medium transition">
+              Login
+            </a>
+            <a href="{% url 'register' %}" 
+               class="px-6 py-2.5 bg-gradient-to-r from-cyan-500 via-purple-600 to-pink-600 
+                      text-white font-black rounded-xl hover:scale-110 
+                      shadow-lg hover:shadow-cyan-500/50 transition-all duration-300">
+              Register
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Mobile Menu Button -->
+
+      <div class="flex items-center lg:hidden">
+        <button id="mobile-menu-btn" 
+                class="p-3 rounded-xl bg-gray-800/50 hover:bg-gray-700 
+                       border border-gray-700 hover:border-cyan-500 
+                       transition-all duration-300">
+          <i class="fas fa-bars text-xl text-gray-300"></i>
+        </button>
+      </div>
+
+
+
+
+      
+    </div>
+  </div>
+
+
+  <!-- Mobile Menu Dropdown -->
+ <div id="mobile-menu" class="hidden lg:hidden 
+                bg-white/95 dark:bg-black/95 
+                backdrop-blur-2xl border-t-4 border-cyan-500/30 
+                shadow-2xl">
+  <div class="px-6 py-8 space-y-6">
+
+    <!-- Main Links -->
+    <div class="space-y-4">
+      <a href="{% url 'academics:course_list' %}" 
+         class="block text-xl font-medium text-gray-800 dark:text-gray-200 
+                hover:text-indigo-600 dark:hover:text-cyan-400 
+                transition-all duration-300 py-2 border-b border-gray-200 dark:border-gray-800">
+        Academics
+      </a>
+      <a href="{% url 'freelance_listings' %}" 
+         class="block text-xl font-medium text-gray-800 dark:text-gray-200 
+                hover:text-purple-600 dark:hover:text-purple-400 
+                transition-all duration-300 py-2 border-b border-gray-200 dark:border-gray-800">
+        Freelance
+      </a>
+      <a href="{% url 'courses:courses_list' %}" 
+         class="block text-xl font-medium text-gray-800 dark:text-gray-200 
+                hover:text-cyan-600 dark:hover:text-emerald-400 
+                transition-all duration-300 py-2 border-b border-gray-200 dark:border-gray-800">
+        Courses
+      </a>
+      <a href="{% url 'about' %}" 
+         class="block text-xl font-medium text-gray-800 dark:text-gray-200 
+                hover:text-pink-600 dark:hover:text-pink-400 
+                transition-all duration-300 py-2 border-b border-gray-200 dark:border-gray-800">
+        About
+      </a>
+      <a href="{% url 'contact' %}" 
+         class="block text-xl font-medium text-gray-800 dark:text-gray-200 
+                hover:text-red-600 dark:hover:text-red-400 
+                transition-all duration-300 py-2">
+        Contact
+      </a>
+    </div>
+
+    <!-- Social Icons -->
+    <div class="flex justify-center gap-10 py-6 border-t border-gray-200 dark:border-gray-800">
+      <a href="https://github.com/Ankitkushwaha90" target="_blank"
+         class="group p-4 bg-gray-100 dark:bg-gray-900/70 rounded-2xl 
+                border border-gray-300 dark:border-gray-700 
+                hover:border-indigo-500 dark:hover:border-cyan-500 
+                hover:scale-110 transition-all duration-500">
+        <i class="fab fa-github text-2xl text-gray-700 dark:text-gray-400 
+                 group-hover:text-indigo-600 dark:group-hover:text-cyan-400 transition"></i>
+      </a>
+
+      <a href="https://huggingface.co/ankitkushwaha90" target="_blank"
+         class="group p-4 bg-gray-100 dark:bg-gray-900/70 rounded-2xl 
+                border border-gray-300 dark:border-gray-700 
+                hover:border-purple-500 hover:scale-110 transition-all duration-500">
+        <span class="text-4xl group-hover:text-purple-600 dark:group-hover:text-purple-400 transition">🤗</span>
+      </a>
+      <!-- Theme Toggle -->
+          <button onclick="toggleDarkMode()" class="ml-3 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition" aria-label="Toggle theme">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path id="theme-icon" d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+            </svg>
+          </button>
+    </div>
+
+    <!-- Auth Section -->
+    {% if user.is_authenticated %}
+      <div class="space-y-4 pt-6 border-t border-gray-200 dark:border-gray-800">
+        <div class="text-center">
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Welcome back,</p>
+          <p class="text-2xl font-black text-indigo-600 dark:text-cyan-400">{{ user.username }}</p>
+        </div>
+        <a href="{% url 'dashboard' %}" 
+           class="block text-center py-5 bg-gradient-to-r from-indigo-600 to-purple-600 
+                  dark:from-cyan-500 dark:to-purple-600 
+                  text-white font-black text-xl rounded-2xl shadow-xl 
+                  hover:scale-105 transition-all duration-300">
+          Launch Dashboard
+        </a>
+        <form action="{% url 'logout' %}" method="post" class="mt-4">
+          {% csrf_token %}
+          <button type="submit" 
+                  class="w-full text-center py-4 text-pink-600 dark:text-pink-400 
+                         hover:text-pink-500 dark:hover:text-pink-300 
+                         font-bold text-lg transition-all duration-300">
+            Logout • End Session
+          </button>
+        </form>
+      </div>
+    {% else %}
+      <div class="space-y-4 pt-6 border-t border-gray-200 dark:border-gray-800">
+        <a href="{% url 'login' %}" 
+           class="block text-center py-5 text-gray-800 dark:text-gray-200 
+                  font-bold text-xl hover:text-indigo-600 dark:hover:text-cyan-400 
+                  transition-all duration-300">
+          Login to Command Center
+        </a>
+        <a href="{% url 'register' %}" 
+           class="block text-center py-6 bg-gradient-to-r from-cyan-500 via-purple-600 to-pink-600 
+                  text-white font-black text-2xl rounded-2xl shadow-2xl 
+                  hover:scale-105 transition-all duration-300">
+          Register • Join Elite
+        </a>
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+
+
+
+
+</nav>
+
+  <!-- CSS + JS -->
+  <style>
+    .nav-link {
+      @apply relative px-5 py-3 text-gray-300 font-medium text-sm hover:text-cyan-400 transition-all duration-300;
+    }
+
+    .nav-link::after {
+      content: '';
+      @apply absolute bottom-0 left-1/2 w-0 h-0.5 bg-cyan-400 transition-all duration-500 -translate-x-1/2;
+    }
+
+    .nav-link:hover::after {
+      @apply w-full;
+    }
+
+    .social-btn {
+      @apply p-3 rounded-xl bg-gray-800/50 backdrop-blur-xl border border-gray-700 hover:border-current transition-all duration-300;
+    }
+
+    /* Mobile Menu Toggle */
+    #mobile-menu-btn[aria-expanded="true"] i {
+      @apply rotate-90 transition-transform duration-300;
+    }
+  </style>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+      const menu = document.getElementById('mobile-menu');
+      const expanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', !expanded);
+      menu.classList.toggle('hidden');
+    });
+
+    // Theme toggle (keep your existing function)
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      document.getElementById('theme-icon').setAttribute('d',
+        isDark
+          ? "M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+          : "M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.494 8.486a1 1 0 010-1.414l.707-.707a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+      );
+    }
+
+    // Load saved theme
+    if (localStorage.getItem('theme') === 'dark' ||
+      (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+
+  <!-- Main Content -->
+  <main class="flex-1 mx-auto w-full ">
+    {% if messages %}
+    {% for message in messages %}
+    <div
+      class="mb-4 p-4 rounded-lg {% if message.tags == 'error' %}bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800{% else %}bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800{% endif %}">
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+
+  <!-- Footer -->
+<footer class="relative 
+                bg-white dark:bg-black 
+                border-t border-gray-200 dark:border-gray-800 
+                overflow-hidden">
+
+  <!-- Subtle Light Mode Grid Pattern -->
+  <div class="absolute inset-0 opacity-5 dark:opacity-0 pointer-events-none">
+    <div class="h-full w-full bg-[linear-gradient(#e5e7eb_1px,transparent_1px),linear-gradient(90deg,#e5e7eb_1px,transparent_1px)] 
+                bg-[size:60px_60px]"></div>
+  </div>
+
+  <!-- Matrix Rain – Only in Dark Mode -->
+  <div class="absolute inset-0 opacity-10 dark:opacity-15 pointer-events-none hidden dark:block">
+    <canvas id="footer-matrix" class="fixed inset-0"></canvas>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6 py-16 lg:py-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+
+      <!-- Brand Column -->
+      <div class="lg:col-span-2">
+        <h3 class="text-4xl font-black tracking-tighter">
+          <span class="bg-gradient-to-r 
+                       from-indigo-600 via-purple-600 to-pink-600 
+                       dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 
+                       bg-clip-text text-transparent">
+            ProHacker
+          </span>
+        </h3>
+        <p class="mt-4 text-lg leading-relaxed max-w-md 
+                 text-gray-700 dark:text-gray-300">
+          Elite offensive security training. Real exploits. Private labs. 
+          Trusted by red teams at <span class="text-indigo-600 dark:text-cyan-300 font-bold">Google • Meta • Tesla</span>.
+        </p>
+
+        <!-- Social Icons – Works Perfectly in Both Modes -->
+        <div class="mt-8 flex gap-6">
+          <a href="https://github.com/Ankitkushwaha90" target="_blank"
+             class="group relative   sm:p-4 sm:m-3 lg:p-4 bg-gray-100 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl 
+                    border border-gray-300 dark:border-gray-700 
+                    hover:border-indigo-500 dark:hover:border-cyan-500 
+                    hover:scale-110 transition-all duration-500">
+            <i class="fab fa-github text-2xl text-gray-700 dark:text-gray-400 
+                     group-hover:text-indigo-600 dark:group-hover:text-cyan-400 transition"></i>
+            <div class="absolute inset-0 rounded-2xl 
+                        bg-indigo-500/20 dark:bg-cyan-500/20 blur-xl 
+                        scale-0 group-hover:scale-150 transition"></div>
+          </a>
+
+          <a href="https://huggingface.co/ankitkushwaha90" target="_blank"
+             class="group relative   sm:p-4 sm:m-3 lg:p-4 bg-gray-100 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl 
+                    border border-gray-300 dark:border-gray-700 
+                    hover:border-purple-500 hover:scale-110 transition-all duration-500">
+            <span class="text-3xl">🤗</span>
+            <div class="absolute inset-0 rounded-2xl bg-purple-500/20 blur-xl 
+                        scale-0 group-hover:scale-150 transition"></div>
+          </a>
+
+          <a href="#" class="group relative   sm:p-4 sm:m-3 lg:p-4 bg-gray-100 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl 
+                         border border-gray-300 dark:border-gray-700 
+                         hover:border-indigo-500 hover:scale-110 transition-all duration-500">
+            <i class="fab fa-discord text-2xl text-gray-700 dark:text-gray-400 
+                     group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition"></i>
+            <div class="absolute inset-0 rounded-2xl bg-indigo-500/20 blur-xl 
+                        scale-0 group-hover:scale-150 transition"></div>
+          </a>
+
+          <a href="#" class="group relative   sm:p-4 sm:m-3 lg:p-4 bg-gray-100 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl 
+                         border border-gray-300 dark:border-gray-700 
+                         hover:border-red-500 hover:scale-110 transition-all duration-500">
+            <i class="fab fa-youtube text-2xl text-gray-700 dark:text-gray-400 
+                     group-hover:text-red-600 dark:group-hover:text-red-400 transition"></i>
+            <div class="absolute inset-0 rounded-2xl bg-red-500/20 blur-xl 
+                        scale-0 group-hover:scale-150 transition"></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="text-xl font-bold text-indigo-700 dark:text-cyan-400 mb-6">Academy</h4>
+        <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+          <li><a href="#" class="hover:text-indigo-600 dark:hover:text-cyan-300 transition">Courses</a></li>
+          <li><a href="#" class="hover:text-indigo-600 dark:hover:text-cyan-300 transition">Private Labs</a></li>
+          <li><a href="#" class="hover:text-indigo-600 dark:hover:text-cyan-300 transition">Certifications</a></li>
+          <li><a href="#" class="hover:text-indigo-600 dark:hover:text-cyan-300 transition">Community</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-xl font-bold text-purple-700 dark:text-purple-400 mb-6">Resources</h4>
+        <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-300 transition">Documentation</a></li>
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-300 transition">CTF Writeups</a></li>
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-300 transition">Blog</a></li>
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-300 transition">Tools</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-xl font-bold text-pink-700 dark:text-pink-400 mb-6">Legal</h4>
+        <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+          <li><a href="#" class="hover:text-pink-600 dark:hover:text-pink-300 transition">Privacy Policy</a></li>
+          <li><a href="#" class="hover:text-pink-600 dark:hover:text-pink-300 transition">Terms of Service</a></li>
+          <li><a href="#" class="hover:text-pink-600 dark:hover:text-pink-300 transition">Responsible Disclosure</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="mt-16 pt-10 border-t border-gray-200 dark:border-gray-800 text-center">
+      <p class="text-gray-600 dark:text-gray-400 text-sm">
+        © 2025 <span class="text-indigo-600 dark:text-cyan-400 font-bold">ProHacker Academy</span>. All exploits reserved.
+      </p>
+      <p class="text-xs text-gray-500 dark:text-gray-500 mt-3">
+        Built with <i class="fas fa-heart text-red-500 animate-pulse"></i> and zero trust by 
+        <a href="https://github.com/Ankitkushwaha90" target="_blank" 
+           class="text-indigo-600 dark:text-cyan-400 hover:text-indigo-500 dark:hover:text-cyan-300 font-bold underline">
+          Ankit Kushwaha
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Terminal Easter Egg (Only in Dark Mode) -->
+  <div class="fixed bottom-8 left-8 opacity-0 hover:opacity-100 transition-opacity duration-500 
+              bg-white dark:bg-black/90 backdrop-blur-xl border border-gray-300 dark:border-cyan-500/50 
+              rounded-lg p-4 font-mono text-xs text-gray-800 dark:text-green-400 
+              shadow-2xl shadow-gray-300/20 dark:shadow-cyan-500/20">
+    <p>> whoami</p>
+    <p class="text-indigo-600 dark:text-cyan-300">root@prohacker:~# <span class="animate-pulse">_</span></p>
+  </div>
+</footer>
+
+
+  {% block extra_css %}{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "\\[", right: "\\]", display: true }
+        ],
+        throwOnError: false
+      });
+    });
+  </script>
+
+  <!-- Load MathJax for LaTeX rendering -->
+
+
+  
+  
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body);"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "\\[", right: "\\]", display: true }
+        ],
+        throwOnError: false
+      });
+      hljs.highlightAll();
+    });
+  </script>
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        renderActions: {
+          addMenu: []  // Optional: disable context menu
+        }
+      }
+    };
+  </script>
+
+
+  <!-- end  -->
+  <script>
+    // Mobile Menu Toggle
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+
+    // Matrix Rain (Dark Mode Only)
+    if (document.documentElement.classList.contains('dark')) {
+      const matrix = document.querySelector('.matrix');
+      const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+      setInterval(() => {
+        const span = document.createElement('span');
+        span.textContent = chars[Math.floor(Math.random() * chars.length)];
+        span.style.left = Math.random() * 100 + 'vw';
+        span.style.animationDuration = Math.random() * 5 + 3 + 's';
+        setTimeout(() => span.remove(), 10000);
+      }, 80);
+    }
+
+    // Initialize Prism
+    document.addEventListener('DOMContentLoaded', () => {
+      Prism.highlightAll();
+      updateThemeIcon();
+    });
+  </script>
+
+  <script>
+    // Mobile Menu Toggle
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+
+    // Initialize Prism
+    document.addEventListener('DOMContentLoaded', () => {
+      Prism.highlightAll();
+      updateThemeIcon();
+    });
+  </script>
+</body>
+
+</html>

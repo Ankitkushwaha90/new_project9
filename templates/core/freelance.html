@@ -1,0 +1,332 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Elite Offensive Security Engineer | For Hire{% endblock %}
+
+{% block extra_css %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;600;700;900&display=swap');
+
+  /* Core Animations */
+  .glitch { 
+    position: relative; 
+    animation: glitch 4s infinite; 
+  }
+  .glitch::before, .glitch::after { 
+    content: attr(data-text); 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+  }
+  .glitch::before { animation: glitch-1 0.5s infinite; color: #ff00ff; left: 2px; text-shadow: -2px 0 #00ffff; }
+  .glitch::after { animation: glitch-2 0.5s infinite; color: #00ffff; left: -2px; text-shadow: 2px 0 #ff00ff; }
+
+  @keyframes glitch { 0%,100% { transform: translate(0); } 20% { transform: translate(-3px,3px); } 40% { transform: translate(3px,-3px); } }
+  @keyframes glitch-1 { 0% { clip: rect(20px,9999px,40px,0); } 100% { clip: rect(80px,9999px,100px,0); } }
+  @keyframes glitch-2 { 0% { clip: rect(40px,9999px,60px,0); } 100% { clip: rect(10px,9999px,80px,0); } }
+
+  .scanline {
+    position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+    background: linear-gradient(transparent, rgba(0,255,255,0.15), transparent);
+    animation: scan 8s linear infinite;
+  }
+  @keyframes scan { from { transform: translateY(-100%); } to { transform: translateY(100vh); } }
+
+  .floating { animation: float 10s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+
+  /* Card Hover Effects */
+  .project-card {
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(16px);
+  }
+  .project-card:hover {
+    transform: translateY(-20px) scale(1.03);
+    box-shadow: 0 40px 80px -16px rgba(6, 182, 212, 0.4);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO – LIGHT & DARK MODE PERFECT -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden 
+                bg-gradient-to-b from-slate-50 via-white to-indigo-50 
+                dark:from-black dark:via-gray-950 dark:to-black">
+
+  <!-- Matrix Rain – Only in Dark Mode -->
+  <canvas id="matrix" class="fixed inset-0 opacity-0 dark:opacity-40 pointer-events-none"></canvas>
+  <div class="scanline hidden dark:block"></div>
+
+  <!-- Floating Orbs – Subtle in Light, Neon in Dark -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-20 left-10 w-96 h-96 
+                bg-indigo-400/10 dark:bg-cyan-500/30 
+                rounded-full blur-3xl floating"></div>
+    <div class="absolute bottom-32 right-20 w-80 h-80 
+                bg-purple-400/10 dark:bg-purple-600/30 
+                rounded-full blur-3xl floating" style="animation-delay: -5s;"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 
+                bg-pink-400/10 dark:bg-pink-600/20 
+                rounded-full blur-3xl floating" style="animation-delay: -8s;"></div>
+  </div>
+
+  <div class="relative z-10 text-center px-6 max-w-6xl mx-auto">
+    <h1 class="text-6xl md:text-8xl lg:text-9xl font-black leading-tight mb-8">
+      <span class="block text-gray-900 dark:text-white drop-shadow-2xl">
+        OFFENSIVE
+      </span>
+      <span class="block text-transparent bg-clip-text 
+                   bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 
+                   dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 
+                   drop-shadow-2xl">
+        SECURITY
+      </span>
+      <span class="block text-gray-900 dark:text-white text-5xl md:text-7xl mt-4 drop-shadow-2xl">
+        ENGINEER
+      </span>
+    </h1>
+
+    <p class="text-2xl md:text-3xl text-indigo-700 dark:text-cyan-300 font-mono mb-12">
+      <span class="text-emerald-600 dark:text-green-400">root@kali</span>:~$ whoami<br>
+      <span class="text-purple-600 dark:text-pink-400">→</span> Red Team • Exploit Dev • AI Security • Pentesting
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-8 justify-center items-center mb-16">
+      <a href="#contact" 
+         class="group relative px-12 py-6 
+                bg-gradient-to-r from-indigo-600 to-purple-600 
+                dark:from-cyan-500 dark:to-purple-600 
+                rounded-2xl font-black text-3xl text-white shadow-2xl 
+                hover:scale-110 transition-all duration-500 
+                border-4 border-white/20 hover:border-white overflow-hidden">
+        <span class="relative z-10">HIRE ME NOW</span>
+        <div class="absolute inset-0 bg-white/20 blur-xl scale-0 group-hover:scale-150 transition-transform duration-700"></div>
+      </a>
+
+      <a href="#projects" 
+         class="px-12 py-6 border-4 border-dashed 
+                border-purple-600 dark:border-pink-500 
+                text-purple-600 dark:text-pink-400 
+                font-black text-3xl rounded-2xl backdrop-blur-xl 
+                hover:bg-purple-100 dark:hover:bg-pink-500/10 
+                transition-all duration-500 hover:rotate-3">
+        VIEW WAR ROOM
+      </a>
+    </div>
+
+    <div class="text-indigo-700 dark:text-cyan-400 font-mono text-lg">
+      [STATUS] Available • Top 1% HTB • OSCP • OSWE • 50+ engagements
+    </div>
+  </div>
+</section>
+
+<!-- STATS – CLEAN & RESPONSIVE -->
+<div class="bg-gray-50 dark:bg-black border-y-4 border-indigo-200 dark:border-cyan-500/20 py-12">
+  <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+    <div>
+      <div class="text-5xl font-black text-indigo-600 dark:text-cyan-400">50+</div>
+      <div class="text-gray-700 dark:text-gray-400">Engagements</div>
+    </div>
+    <div>
+      <div class="text-5xl font-black text-purple-600 dark:text-purple-400">100%</div>
+      <div class="text-gray-700 dark:text-gray-400">Satisfaction</div>
+    </div>
+    <div>
+      <div class="text-5xl font-black text-pink-600 dark:text-pink-400">24h</div>
+      <div class="text-gray-700 dark:text-gray-400">Response</div>
+    </div>
+    <div>
+      <div class="text-5xl font-black text-emerald-600 dark:text-green-400">$250k+</div>
+      <div class="text-gray-700 dark:text-gray-400">Bounties Earned</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS – FULLY RESPONSIVE & BEAUTIFUL -->
+<section id="projects" class="py-20 bg-gray-50 dark:bg-black">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-center text-5xl md:text-7xl font-black mb-16 
+               bg-gradient-to-r from-indigo-600 to-purple-600 
+               dark:from-red-500 dark:to-pink-500 
+               bg-clip-text text-transparent">
+      WAR ROOM — SELECTED OPS
+    </h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+      <!-- Project 1 -->
+      <div class="project-card group relative bg-white dark:bg-gray-900/80 
+                  backdrop-blur-xl rounded-3xl overflow-hidden 
+                  border border-gray-300 dark:border-gray-700 
+                  hover:border-indigo-500 dark:hover:border-cyan-500 
+                  transition-all duration-700">
+        <div class="h-64 bg-gradient-to-br from-indigo-500 to-purple-600 
+                    dark:from-cyan-500 dark:to-purple-600 relative overflow-hidden">
+          <div class="absolute inset-0 bg-black/30 dark:bg-black/40 
+                      flex items-center justify-center">
+            <h3 class="text-4xl font-black text-white drop-shadow-2xl">Web Vite</h3>
+          </div>
+        </div>
+        <div class="p-8">
+          <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+            Lightning-fast Vite + React + Tailwind stack. Deployed on Vercel with CI/CD.
+          </p>
+          <div class="flex flex-wrap gap-3 mb-6">
+            <span class="px-4 py-2 bg-indigo-100 dark:bg-cyan-900/50 
+                         border border-indigo-300 dark:border-cyan-600 
+                         text-indigo-700 dark:text-cyan-300 rounded-full text-sm font-bold">
+              React
+            </span>
+            <span class="px-4 py-2 bg-purple-100 dark:bg-purple-900/50 
+                         border border-purple-300 dark:border-purple-600 
+                         text-purple-700 dark:text-purple-300 rounded-full text-sm font-bold">
+              Vite
+            </span>
+            <span class="px-4 py-2 bg-pink-100 dark:bg-pink-900/50 
+                         border border-pink-300 dark:border-pink-600 
+                         text-pink-700 dark:text-pink-300 rounded-full text-sm font-bold">
+              Tailwind
+            </span>
+          </div>
+          <div class="flex gap-4">
+            <a href="https://web-vite-kappa.vercel.app/" target="_blank" 
+               class="flex-1 text-center py-3 bg-gradient-to-r from-indigo-600 to-purple-600 
+                      dark:from-cyan-500 dark:to-purple-600 
+                      text-white font-bold rounded-xl hover:scale-110 transition">
+              LIVE ACCESS
+            </a>
+            <a href="#" class="flex-1 text-center py-3 border-2 
+               border-gray-400 dark:border-gray-600 
+               text-gray-700 dark:text-gray-400 
+               font-bold rounded-xl hover:border-indigo-500 dark:hover:border-cyan-500 
+               hover:text-indigo-600 dark:hover:text-cyan-400 transition">
+              SOURCE CODE
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card group relative bg-white dark:bg-gray-900/80 
+                  backdrop-blur-xl rounded-3xl overflow-hidden 
+                  border border-gray-300 dark:border-gray-700 
+                  hover:border-orange-500 dark:hover:border-red-500 
+                  transition-all duration-700">
+        <div class="h-64 bg-gradient-to-br from-orange-500 to-red-600 
+                    dark:from-red-500 dark:to-orange-600 relative overflow-hidden">
+          <div class="absolute inset-0 bg-black/30 dark:bg-black/40 
+                      flex items-center justify-center">
+            <h3 class="text-4xl font-black text-white drop-shadow-2xl">Movix</h3>
+          </div>
+        </div>
+        <div class="p-8">
+          <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+            Full-stack movie platform with TMDB API, infinite scroll, PWA ready.
+          </p>
+          <div class="flex flex-wrap gap-3 mb-6">
+            <span class="px-4 py-2 bg-orange-100 dark:bg-red-900/50 
+                         border border-orange-300 dark:border-red-600 
+                         text-orange-700 dark:text-red-300 rounded-full text-sm font-bold">
+              React
+            </span>
+            <span class="px-4 py-2 bg-red-100 dark:bg-orange-900/50 
+                         border border-red-300 dark:border-orange-600 
+                         text-red-700 dark:text-orange-300 rounded-full text-sm font-bold">
+              TMDB API
+            </span>
+          </div>
+          <div class="flex gap-4">
+            <a href="https://movix-iota-khaki.vercel.app/" target="_blank" 
+               class="flex-1 text-center py-3 bg-gradient-to-r from-orange-600 to-red-600 
+                      dark:from-red-500 dark:to-orange-600 
+                      text-white font-bold rounded-xl hover:scale-110 transition">
+              LIVE ACCESS
+            </a>
+            <a href="#" class="flex-1 text-center py-3 border-2 
+               border-gray-400 dark:border-gray-600 
+               text-gray-700 dark:text-gray-400 
+               font-bold rounded-xl hover:border-orange-500 dark:hover:border-red-500 
+               hover:text-orange-600 dark:hover:text-red-400 transition">
+              SOURCE CODE
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card group relative bg-white dark:bg-gray-900/80 
+                  backdrop-blur-xl rounded-3xl overflow-hidden 
+                  border border-gray-300 dark:border-gray-700 
+                  hover:border-emerald-500 transition-all duration-700">
+        <div class="h-64 bg-gradient-to-br from-emerald-500 to-teal-600 relative overflow-hidden">
+          <div class="absolute inset-0 bg-black/30 dark:bg-black/40 
+                      flex items-center justify-center">
+            <h3 class="text-4xl font-black text-white drop-shadow-2xl">Content Wind</h3>
+          </div>
+        </div>
+        <div class="p-8">
+          <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+            Nuxt 3 + Markdown CMS with Prism.js, SEO, instant search.
+          </p>
+          <div class="flex flex-wrap gap-3 mb-6">
+            <span class="px-4 py-2 bg-emerald-100 dark:bg-emerald-900/50 
+                         border border-emerald-300 dark:border-emerald-600 
+                         text-emerald-700 dark:text-emerald-300 rounded-full text-sm font-bold">
+              Nuxt 3
+            </span>
+            <span class="px-4 py-2 bg-teal-100 dark:bg-teal-900/50 
+                         border border-teal-300 dark:border-teal-600 
+                         text-teal-700 dark:text-teal-300 rounded-full text-sm font-bold">
+              Tailwind
+            </span>
+          </div>
+          <div class="flex gap-4">
+            <a href="https://content-wind-ten.vercel.app/" target="_blank" 
+               class="flex-1 text-center py-3 bg-gradient-to-r from-emerald-600 to-teal-600 
+                      text-white font-bold rounded-xl hover:scale-110 transition">
+              LIVE ACCESS
+            </a>
+            <a href="#" class="flex-1 text-center py-3 border-2 
+               border-gray-400 dark:border-gray-600 
+               text-gray-700 dark:text-gray-400 
+               font-bold rounded-xl hover:border-emerald-500 
+               hover:text-emerald-600 transition">
+              SOURCE CODE
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MATRIX RAIN – Only in Dark Mode -->
+<script>
+  if (document.documentElement.classList.contains('dark')) {
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const matrix = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0,0,0,0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#00ff41';
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = matrix[Math.floor(Math.random() * matrix.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    setInterval(draw, 35);
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ course.title }} - ProHacker Academy{% endblock %}
+
+{% block content %}
+
+<!-- Matrix Background (Dark Mode Only) -->
+<!-- <div class="matrix hidden dark:block"></div> -->
+
+<!-- Course Header -->
+<header class="bg-gradient-to-br from-indigo-600 via-purple-600 to-emerald-600 dark:from-indigo-700 dark:via-purple-700 dark:to-emerald-700 text-white py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="md:flex md:items-center md:justify-between">
+      <div class="flex-1 min-w-0">
+        <h1 class="text-3xl font-bold text-white dark:text-white">
+          {{ course.title }}
+        </h1>
+        <p class="mt-2 text-indigo-100 dark:text-indigo-200">
+          {{ course.description }}
+        </p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-gray-50 dark:bg-gray-900">
+  <div class="lg:grid lg:grid-cols-4 lg:gap-8">
+
+    <aside class="lg:col-span-1 mb-8 lg:mb-0">
+  <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 sticky top-6">
+    
+    <!-- Header with Title + Search Bar -->
+    <div class="p-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+      <h2 class="text-lg font-bold text-gray-900 dark:text-cyan-400 mb-3">COURSE MODULES</h2>
+      
+      <!-- Search Input -->
+      <div class="relative">
+        <input 
+          type="text"
+          id="module-search-input"
+          placeholder="Search modules..."
+          class="w-full pl-10 pr-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 
+                 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100
+                 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent
+                 transition-all duration-200"
+        >
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none"
+             fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Modules List (Scrollable) -->
+    <nav class="divide-y divide-gray-200 dark:divide-gray-700 max-h-[70vh] overflow-y-auto">
+      {% for module in modules %}
+      <div class="module-item px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+        <a href="{% url 'courses:module_detail' course.slug module.id %}" 
+           class="flex items-center justify-between text-sm font-medium text-indigo-600 dark:text-cyan-300 hover:text-indigo-800 dark:hover:text-cyan-100">
+          <span class="flex items-center gap-2">
+            <i class="fas fa-circle text-xs"></i>
+            <span class="module-title">{{ module.title }}</span>
+          </span>
+          <i class="fas fa-chevron-right text-xs"></i>
+        </a>
+        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+          {{ module.contents.count }} lesson{{ module.contents.count|pluralize }}
+        </p>
+
+        <!-- Module Progress -->
+        {% if module.user_progress %}
+        <div class="mt-2">
+          <div class div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+            <div class="bg-gradient-to-r from-indigo-500 to-emerald-500 h-1.5 rounded-full transition-all duration-500"></div>
+          </div>
+          <span class="text-xs text-gray-500 dark:text-gray-400">{{ module.user_progress }}% completed</span>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </nav>
+
+    <!-- No results message (hidden by default) -->
+    <div id="no-results" class="hidden px-4 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+      <p>No modules found matching your search.</p>
+    </div>
+  </div>
+</aside>
+
+<!-- Live Search Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const searchInput = document.getElementById('module-search-input');
+  const moduleItems = document.querySelectorAll('.module-item');
+  const noResultsMsg = document.getElementById('no-results');
+
+  searchInput.addEventListener('input', function () {
+    const query = this.value.trim().toLowerCase();
+    let visibleCount = 0;
+
+    moduleItems.forEach(item => {
+      const title = item.querySelector('.module-title').textContent.toLowerCase();
+      
+      if (query === '' || title.includes(query)) {
+        item.style.display = '';
+        visibleCount++;
+      } else {
+        item.style.display = 'none';
+      }
+    });
+
+    // Show/hide "no results" message
+    noResultsMsg.classList.toggle('hidden', visibleCount > 0);
+  });
+
+  // Optional: Clear search on Escape key
+  searchInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      this.value = '';
+      moduleItems.forEach(item => item.style.display = '');
+      noResultsMsg.classList.add('hidden');
+    }
+  });
+});
+</script>
+
+    <!-- Main Content -->
+    <main class="lg:col-span-3">
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+        
+        <!-- Welcome -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-purple-400">
+            Welcome to {{ course.title }}
+          </h3>
+          <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+            Select a module from the sidebar to begin.
+          </p>
+        </div>
+
+        <!-- About This Course -->
+        <section class="mb-10">
+          <h3 class="text-2xl font-bold text-indigo-600 dark:text-cyan-400 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">
+            About This Course
+          </h3>
+          <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+            {{ course.description|linebreaksbr }}
+          </p>
+        </section>
+
+        <!-- What You'll Learn -->
+        <section class="mb-10">
+          <h3 class="text-xl font-semibold text-emerald-600 dark:text-green-400 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">
+            What You'll Learn
+          </h3>
+          <ul class="space-y-2">
+            {% for module in modules %}
+            <li class="flex items-start text-gray-700 dark:text-gray-300">
+              <i class="fas fa-check-circle text-emerald-500 dark:text-green-400 mr-2 mt-0.5 flex-shrink-0"></i>
+              <span>{{ module.title }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </section>
+
+        <!-- Start Button -->
+        <div class="mt-10">
+          <a href="{% url 'courses:module_detail' course.slug modules.0.id %}" 
+             class="inline-flex items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 dark:bg-cyan-600 dark:hover:bg-cyan-500 text-white font-medium rounded-md transition-all duration-300 shadow-sm">
+            <i class="fas fa-play mr-2"></i> Start Learning
+          </a>
+        </div>
+      </div>
+
+      <!-- Overall Course Progress -->
+      {% if course.user_progress %}
+      <div class="mt-8 bg-white dark:bg-gray-800 rounded-lg border border-yellow-200 dark:border-yellow-900 p-5">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-bold text-yellow-700 dark:text-yellow-400">COURSE PROGRESS</span>
+          <span class="text-xs text-gray-600 dark:text-gray-300">{{ course.user_progress }}% Complete</span>
+        </div>
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+          <div class="bg-gradient-to-r from-yellow-400 to-orange-500 h-3 rounded-full transition-all duration-700"
+               ></div>
+        </div>
+        <p class="mt-2 text-xs text-gray-600 dark:text-gray-400">
+          +{{ course.total_xp|default:500 }} XP to earn
+        </p>
+      </div>
+      {% endif %}
+
+    </main>
+  </div>
+</div>
+{% endblock %}
