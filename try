@@ -1,0 +1,105 @@
+docker run -d   --name my_db   --network mydjango_net   -e MYSQL_ROOT_PASSWORD=rootpassword123 -e MYSQL_DATABASE=myproject_db -e MYSQL_USER=django_user -e MYSQL_PASSWORD=django_pass_2025   new_db_django:latest -e MYSQL_PASSWORD=django_pass_2025 new_db_django:latest
+
+
+
+docker run -d   --name my_db   -e MYSQL_ROOT_PASSWORD=rootpassword123   -e MYSQL_DATABASE=techforge   -e MYSQL_USER=techforge_user   -e MYSQL_PASSWORD=your_strong_password_here   new_db_django:latest
+
+
+
+
+
+docker run -d   --name my_web   --network mydjango_net   -p 8000:8000   -p 8080:80   new_app_django:latest
+
+
+
+docker run -d   --name my_web   --network mydjango_net   -p 8000:8000   -p 8080:80   -e DB_HOST=my_db new_app_django:latest
+
+
+docker run -d   --name my_db   --network mydjango_net   -e MYSQL_ROOT_PASSWORD=rootpassword123   -e MYSQL_DATABASE=techforge   -e MYSQL_USER=techforge_user   -e MYSQL_PASSWORD=your_strong_password_here   new_db_django:latest
+
+
+
+
+
+docker run -d   --name my_web   --network mydjango_net   -p 8000:8000   -p 8080:80 new_app_django:latest
+
+
+
+
+
+# 1. Give the volume a name so it never disappears
+docker stop my_db
+docker run -d   --name db   --network mydjango_net   -v my_db_data:/var/lib/mysql   -e MYSQL_ROOT_PASSWORD=rootpassword123   -e MYSQL_DATABASE=techforge   -e MYSQL_USER=techforge_user   -e MYSQL_PASSWORD=your_strong_password_here   new_db_django:latest
+
+# 2. Restart Django (it will now connect in < 5 seconds forever)
+docker rm -f my_web
+docker run -d   --name my_web   --network mydjango_net   -p 8000:8000   -p 8080:80   new_app_django:latest
+
+
+docker run -d   --name my_web   --network mydjango_net   -p 8000:8000   -p 8080:80   -e DB_HOST=db   -e DB_NAME=techforge   -e DB_USER=techforge_user   -e DB_PASSWORD=your_strong_password_here   new_app_django:latest 
+
+
+
+docker run -d   --name my_web   --network mydjango_net   -p 8000:8000   -p 8080:80   -e DB_HOST=my_db   -e DB_USER=techforge_user   -e DB_PASSWORD=your_strong_password_here   new_app_django:latest   sh -c "echo 'Waiting for MySQL...'; until mysql -h my_db -u techforge_user -p'$DB_PASSWORD' techforge -e 'SELECT 1' >/dev/null 2>&1; do sleep 2; done; echo 'MySQL connected!'; python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000"
+
+
+
+
+
+docker run -d --name techforge_mysql  --network techforge-network  -e MYSQL_ROOT_PASSWORD=your_root_password_here  -e MYSQL_DATABASE=your_db_name  djagno_db_custom
+
+
+docker run -d  --name techforge_django  --network techforge-network  -p 8000:8000  -e DATABASE_URL=mysql://your_mysql_user:your_mysql_password@techforge_mysql:3306/your_db_name  -e DEBUG=True  django_app_custom
+
+
+
+
+
+
+# 1. Create (or recreate) the network
+docker network create techforge-network 2>nul || true
+
+# 2. Start your custom MySQL container (with your existing database & data)
+docker run -d   --name techforge_mysql   --network techforge-network   -e MYSQL_ROOT_PASSWORD=any_password_you_want   -e MYSQL_DATABASE=techforge   -e MYSQL_USER=techforge_user   -e MYSQL_PASSWORD=your_strong_password_here     djagno_db_custom
+
+# 3. Start your custom Django container (with correct environment variables from your .env)
+docker run -d   --name techforge_django   --network techforge-network   -p 8000:8000   -e DEBUG=True   -e SECRET_KEY=django-insecure-sj*a@az(%bvd5em43(6bsp(8odh$5(4%sdi5-*a@w@b9i_da   -e DB_NAME=techforge   -e DB_USER=techforge_user   -e DB_PASSWORD=your_strong_password_here   -e DB_HOST=techforge_mysql   -e DB_PORT=3306   -e ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0   django_app_custom
+
+
+
+
+
+
+
+
+# 1. Create a named volume that will keep your DB forever
+docker volume create techforge_mysql_data
+
+# 2. Stop and remove the broken MySQL container
+docker stop techforge_mysql
+docker rm techforge_mysql
+
+
+
+
+
+
+# it is correct
+# 3. Start official MySQL with your existing data + correct user/password
+docker run -d   --name techforge_mysql   --network techforge-network   -v techforge_mysql_data:/var/lib/mysql   -e MYSQL_ROOT_PASSWORD=123456   -e MYSQL_DATABASE=techforge   -e MYSQL_USER=techforge_user   -e MYSQL_PASSWORD=your_strong_password_here   mysql:8.0 
+
+
+# it is correct 
+docker run -d   --name techforge_django   --network techforge-network   -p 8000:8000   -e DEBUG=True   -e SECRET_KEY=django-insecure-sj*a@az(%bvd5em43(6bsp(8odh$5(4%sdi5-*a@w@b9i_da   -e DB_NAME=techforge   -e DB_USER=techforge_user   -e DB_PASSWORD=your_strong_password_here   -e DB_HOST=techforge_mysql   -e DB_PORT=3306   -e ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0   django_app_custom
+
+
+
+
+docker run -d  --name techforge_mysql  --network techforge-network  -e MYSQL_ROOT_PASSWORD=123456  -e MYSQL_DATABASE=techforge  -e MYSQL_USER=techforge_user  -e MYSQL_PASSWORD=your_strong_password_here  new_mysql_image_update
+
+
+docker run -d   --name techforge_django   --network techforge-network   -p 8000:8000   -e DEBUG=True   -e SECRET_KEY=django-insecure-sj*a@az^#(%bvd5em43(6bsp(8odh$5(4%sdi5-*a@w@b9i_da   -e DB_NAME=techforge   -e DB_USER=techforge_user   -e DB_PASSWORD=your_strong_password_here   -e DB_HOST=techforge_mysql   -e DB_PORT=3306   -e ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0   django_app_custom
+
+
+
+
