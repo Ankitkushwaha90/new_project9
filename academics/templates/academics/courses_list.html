@@ -1,0 +1,272 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Elite Courses - ProHacker Academy{% endblock %}
+
+{% block extra_css %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap');
+
+  /* Responsive Grid */
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+  @media (min-width: 640px) { .course-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .course-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 1280px) { .course-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+  /* Card Hover Effects */
+  .course-card {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(16px);
+  }
+  .course-card:hover {
+    transform: translateY(-16px) scale(1.02);
+    box-shadow: 0 32px 64px -12px rgba(6, 182, 212, 0.3);
+  }
+
+  /* Glowing Border */
+  .glow-border {
+    position: absolute;
+    inset: 0;
+    border-radius: 1.5rem;
+    background: linear-gradient(45deg, #06b6d4, #a855f7, #ec4899, #06b6d4);
+    background-size: 300%;
+    animation: glow 8s linear infinite;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.6s;
+  }
+  .course-card:hover .glow-border { opacity: 1; }
+  @keyframes glow { to { background-position: 300%; } }
+
+  /* Gradient Text Animation */
+  .gradient-text {
+    background-size: 200% 200%;
+    animation: gradient 8s ease infinite;
+  }
+  @keyframes gradient { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+  /* Light Mode Overrides */
+  .light-mode .bg-black { @apply bg-white; }
+  .light-mode .text-white { @apply text-gray-900; }
+  .light-mode .text-gray-400 { @apply text-gray-600; }
+  .light-mode .bg-gray-900\/70 { @apply bg-white\/80; }
+  .light-mode .border-gray-800 { @apply border-gray-300; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO – PERFECT IN BOTH MODES -->
+<section class="relative overflow-hidden 
+                bg-gradient-to-b from-white via-gray-50 to-indigo-50 
+                dark:from-black dark:via-gray-950 dark:to-black 
+                pt-20 pb-16">
+  
+  <!-- Matrix Rain – Only Dark Mode -->
+  <canvas id="matrix" class="fixed inset-0 opacity-0 dark:opacity-20 pointer-events-none"></canvas>
+
+  <!-- Subtle Light Mode Pattern -->
+  <div class="absolute inset-0 opacity-5 dark:opacity-0 pointer-events-none">
+    <div class="h-full w-full bg-[linear-gradient(#e5e7eb_1px,transparent_1px),linear-gradient(90deg,#e5e7eb_1px,transparent_1px)] 
+                bg-[size:60px_60px]"></div>
+  </div>
+
+  <div class="relative z-10 text-center px-6 max-w-7xl mx-auto">
+    <h1 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-8">
+      <span class="block text-gray-900 dark:text-white/90">ELITE</span>
+      <span class="block text-transparent bg-clip-text 
+                   bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 
+                   dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 
+                   gradient-text drop-shadow-2xl">
+        COURSES
+      </span>
+    </h1>
+
+    <p class="text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed font-light">
+      Real-world offensive security training used by 
+      <span class="text-indigo-600 dark:text-cyan-400 font-bold">Google • Meta • Tesla</span> red teams.
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-8 text-sm uppercase tracking-wider">
+      <span class="flex items-center gap-2 text-red-600 dark:text-red-400">
+        <i class="fas fa-fire"></i> Real Exploits
+      </span>
+      <span class="flex items-center gap-2 text-cyan-600 dark:text-cyan-400">
+        <i class="fas fa-shield-alt"></i> Private Labs
+      </span>
+      <span class="flex items-center gap-2 text-yellow-600 dark:text-yellow-400">
+        <i class="fas fa-medal"></i> OSCP Path
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES GRID – FULLY RESPONSIVE & BEAUTIFUL -->
+<section class="px-6 lg:px-12 xl:px-20 py-20 
+                bg-white dark:bg-black">
+  <div class="max-w-screen-2xl mx-auto">
+
+    {% if courses %}
+      <div class="course-grid">
+
+        {% for course in courses %}
+        <article class="course-card group relative bg-white dark:bg-gray-900/70 
+                        backdrop-blur-xl rounded-2xl overflow-hidden 
+                        border border-gray-200 dark:border-gray-800 
+                        h-full flex flex-col">
+
+          <!-- Glowing Border -->
+          <div class="glow-border"></div>
+
+          <!-- Course Icon + Gradient Header -->
+          <div class="relative h-48 bg-gradient-to-br 
+                      from-indigo-500/20 via-purple-500/20 to-pink-500/20 
+                      dark:from-cyan-900/50 dark:via-purple-900/50 dark:to-pink-900/50 
+                      flex items-center justify-center overflow-hidden">
+            <div class="text-8xl opacity-20 dark:opacity-30 
+                        group-hover:opacity-50 transition-opacity duration-700">
+              {% if 'web' in course.name|lower %}Browser
+              {% elif 'binary' in course.name|lower or 'pwn' in course.name|lower %}Chip
+              {% elif 'cloud' in course.name|lower %}Cloud
+              {% elif 'ai' in course.name|lower or 'ml' in course.name|lower %}Robot
+              {% elif 'kernel' in course.name|lower %}Cogs
+              {% elif 'reverse' in course.name|lower %}Search
+              {% else %}Shield
+              {% endif %}
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t 
+                        from-black/50 via-transparent to-transparent 
+                        dark:from-black/70"></div>
+          </div>
+
+          <div class="relative p-8 flex flex-col flex-grow">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 
+                       line-clamp-2 group-hover:text-indigo-600 dark:group-hover:text-cyan-400 
+                       transition-colors duration-500">
+              {{ course.name }}
+            </h3>
+
+            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3 flex-grow">
+              {% if course.overview %}
+                {{ course.overview|striptags|truncatewords:22 }}
+              {% else %}
+                Advanced offensive security training with real-world exploits and private labs.
+              {% endif %}
+            </p>
+
+            <!-- Metadata Tags -->
+            <div class="flex flex-wrap gap-3 mb-8">
+              <span class="px-4 py-1.5 bg-indigo-100 dark:bg-cyan-900/50 
+                           border border-indigo-300 dark:border-cyan-700 
+                           text-indigo-700 dark:text-cyan-300 text-xs font-bold rounded-full">
+                {% if course.level %}{{ course.level }}{% else %}Advanced{% endif %}
+              </span>
+              <span class="px-4 py-1.5 bg-purple-100 dark:bg-purple-900/50 
+                           border border-purple-300 dark:border-purple-700 
+                           text-purple-700 dark:text-purple-300 text-xs font-bold rounded-full">
+                {% if course.duration %}{{ course.duration }}{% else %}Self-paced{% endif %}
+              </span>
+            </div>
+
+            <!-- CTA Button -->
+            <a href="{{ course.get_absolute_url }}"
+               class="relative mt-auto inline-flex items-center justify-center w-full py-4 
+                      bg-gradient-to-r from-indigo-600 to-purple-600 
+                      dark:from-cyan-500 dark:via-purple-600 dark:to-pink-600 
+                      text-white font-bold rounded-xl shadow-lg 
+                      hover:shadow-2xl hover:shadow-cyan-500/40 
+                      transform hover:scale-105 transition-all duration-500 
+                      overflow-hidden group/btn">
+              <span class="relative z-10 flex items-center justify-center gap-3 w-full">
+                Start Training <i class="fas fa-arrow-right"></i>
+              </span>
+              <div class="absolute inset-0 bg-white/20 blur-xl 
+                          scale-0 group-hover/btn:scale-150 transition-transform duration-700"></div>
+            </a>
+          </div>
+        </article>
+        {% endfor %}
+
+      </div>
+    {% else %}
+      <!-- Premium Empty State -->
+      <div class="text-center py-32">
+        <div class="w-40 h-40 mx-auto mb-10 bg-gradient-to-br from-indigo-100 to-purple-100 
+                    dark:from-cyan-900/50 dark:to-purple-900/50 
+                    rounded-full flex items-center justify-center border-4 border-dashed 
+                    border-indigo-300 dark:border-cyan-700">
+          <i class="fas fa-lock text-7xl text-indigo-600 dark:text-cyan-400 opacity-50"></i>
+        </div>
+        <h3 class="text-4xl font-black text-gray-900 dark:text-white mb-4">Courses Deploying...</h3>
+        <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          We're loading the most powerful offensive security curriculum ever built.<br>
+          <span class="text-indigo-600 dark:text-cyan-400 font-bold">Launch sequence initiated.</span>
+        </p>
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="py-32 bg-gradient-to-t from-white via-gray-50 to-white 
+                dark:from-black dark:via-gray-950 dark:to-black 
+                border-t border-gray-200 dark:border-gray-800">
+  <div class="text-center px-6">
+    <h2 class="text-6xl md:text-8xl font-black mb-8">
+      <span class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 
+                   dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 
+                   bg-clip-text text-transparent">
+        READY TO DOMINATE?
+      </span>
+    </h2>
+    <p class="text-2xl text-gray-700 dark:text-gray-300 mb-12">
+      Join 87,000+ hackers who train like the elite.
+    </p>
+    <a href="{% url 'register' %}" 
+       class="inline-block px-20 py-10 
+              bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 
+              dark:from-cyan-500 dark:via-purple-600 dark:to-pink-600 
+              rounded-full font-black text-5xl text-white shadow-2xl 
+              hover:scale-110 hover:rotate-3 transition-all duration-500 
+              border-4 border-white/20 hover:border-white animate-pulse">
+      ENROLL NOW
+    </a>
+  </div>
+</section>
+
+<!-- MATRIX RAIN – Only in Dark Mode -->
+<script>
+  if (document.documentElement.classList.contains('dark')) {
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const matrix = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホ";
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0,0,0,0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#0f0';
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = matrix[Math.floor(Math.random() * matrix.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    setInterval(draw, 35);
+  }
+</script>
+{% endblock %}

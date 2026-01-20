@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ post.title }} | ProHacker Academy{% endblock %}
+
+{% block content %}
+
+<div class="max-w-5xl mx-auto">
+    <!-- Post Header -->
+    <header class="mb-12 text-center md:text-left">
+        <h1 class="text-4xl md:text-5xl font-bold text-indigo-600 dark:text-cyan-400 mb-4">
+            {{ post.title }}
+        </h1>
+
+        {% if post.description %}
+            <h2 class="text-xl text-gray-600 dark:text-gray-400 italic mb-3">
+                {{ post.description }}
+            </h2>
+        {% endif %}
+
+        <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 text-sm text-gray-500 dark:text-gray-400">
+            {% if post.published_at %}
+                <span>
+                    <i class="far fa-calendar-alt mr-1"></i>
+                    Published: {{ post.published_at|date:"F j, Y" }}
+                </span>
+            {% endif %}
+            {% if post.updated and post.updated != post.published_at %}
+                <span>
+                    <i class="far fa-clock mr-1"></i>
+                    Updated: {{ post.updated|date:"F j, Y" }}
+                </span>
+            {% endif %}
+            {% if post.author %}
+                <span>
+                    <i class="fas fa-user mr-1"></i>
+                    {{ post.author.get_full_name|default:post.author.username }}
+                </span>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article class="prose prose-lg prose-invert max-w-none 
+                    prose-headings:text-indigo-500 dark:prose-headings:text-cyan-400
+                    prose-a:text-blue-500 dark:prose-a:text-cyan-300
+                    prose-blockquote:border-l-indigo-500 dark:prose-blockquote:border-l-cyan-500
+                    prose-code:text-pink-600 dark:prose-code:text-pink-400
+                    prose-pre:bg-gray-800 dark:prose-pre:bg-gray-900
+                    prose-pre:border prose-pre:border-gray-700
+                    mb-12">
+        {{ content_html|safe }}
+    </article>
+
+    <!-- Back Button -->
+    <div class="text-center md:text-left">
+        <a href="{% url 'blog:home' %}"
+           class="inline-flex items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 
+                  dark:bg-cyan-600 dark:hover:bg-cyan-500 text-white font-semibold 
+                  rounded-lg shadow-md transition transform hover:-translate-y-0.5">
+            <i class="fas fa-arrow-left mr-2"></i>
+            Back to All Posts
+        </a>
+    </div>
+</div>
+
+{% endblock %}
